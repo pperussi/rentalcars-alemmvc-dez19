@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Admin register subsidiary' do
   scenario 'successfully' do
-    user = create(:user)
+    user = create(:user, role: :admin)
 
     login_as user, scope: :user
     visit root_path
@@ -25,7 +25,7 @@ feature 'Admin register subsidiary' do
   end
 
   scenario 'and must fill all fields' do
-    user = create(:user)
+    user = create(:user, role: :admin)
 
     login_as user, scope: :user
     visit root_path
@@ -38,5 +38,23 @@ feature 'Admin register subsidiary' do
     expect(page).to have_content('Bairro não pode ficar em branco')
     expect(page).to have_content('Cidade não pode ficar em branco')
     expect(page).to have_content('Estado não pode ficar em branco')
+  end
+
+  scenario 'and must be admin' do
+    user = create(:user)
+
+    login_as user, scope: :user
+    visit root_path
+    
+    expect(page).not_to have_link('Registrar nova filial')
+  end
+
+  scenario 'must be admin and uses url' do
+    user = create(:user)
+
+    login_as user, scope: :user
+    visit new_subsidiary_path
+  
+    expect(current_path).to eq root_path
   end
 end

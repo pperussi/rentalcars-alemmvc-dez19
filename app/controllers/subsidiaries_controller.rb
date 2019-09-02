@@ -1,4 +1,7 @@
 class SubsidiariesController < ApplicationController
+before_action :authenticate_user!
+before_action :authorize_admin
+
   def show
     @subsidiary = Subsidiary.find(params[:id])
   end

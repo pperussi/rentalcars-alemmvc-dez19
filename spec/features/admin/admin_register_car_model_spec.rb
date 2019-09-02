@@ -2,7 +2,7 @@ require 'rails_helper'
 
 feature 'Admin register car model' do
   scenario 'successfully' do
-    user = create(:user)
+    user = create(:user, role: :admin)
     create(:manufacture, name: 'Fiat')
 
     login_as user, scope: :user
@@ -26,7 +26,7 @@ feature 'Admin register car model' do
   end
 
   scenario 'and don\'t fill all fields' do
-    user = create(:user)
+    user = create(:user, role: :admin)
 
     login_as user, scope: :user
     visit root_path
@@ -36,5 +36,25 @@ feature 'Admin register car model' do
     expect(page).to have_content('Nome não pode ficar em branco')
     expect(page).to have_content('Ano não pode ficar em branco')
     expect(page).to have_content('Características não pode ficar em branco')
+  end
+
+  scenario 'and must be admin' do
+    user = create(:user)
+    create(:manufacture, name: 'Fiat')
+
+    login_as user, scope: :user
+    visit root_path
+
+    expect(page).not_to have_link('Criar modelo')
+  end
+
+  scenario 'must be admin and uses url' do
+    user = create(:user)
+    create(:manufacture, name: 'Fiat')
+
+    login_as user, scope: :user
+    visit new_car_model_path
+
+    expect(current_path).to eq root_path
   end
 end

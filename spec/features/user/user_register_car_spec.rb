@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-feature 'Admin register car' do
+feature 'User register car' do
   scenario 'successfully' do
-    user = create(:user)
+    user = create(:user, role: :user)
     fiat = create(:manufacture, name: 'Fiat')
     create(:car_model, name: 'Sport', manufacture: fiat )
 
@@ -27,7 +27,7 @@ feature 'Admin register car' do
   end
 
   scenario 'and must fill all fields' do
-    user = create(:user)
+    user = create(:user, role: :user)
 
     login_as user, scope: :user
     visit root_path
@@ -38,5 +38,16 @@ feature 'Admin register car' do
     expect(page).to have_content('Quilometragem não pode ficar em branco')
     expect(page).to have_content('Cor não pode ficar em branco')
     expect(page).to have_content('Placa não pode ficar em branco')
+  end
+
+  scenario 'and must not be admin to see button' do
+    user = create(:user, role: :admin)
+    fiat = create(:manufacture, name: 'Fiat')
+    create(:car_model, name: 'Sport', manufacture: fiat )
+
+    login_as user, scope: :user
+    visit root_path
+
+    expect(page).not_to have_link('Registrar novo carro')
   end
 end

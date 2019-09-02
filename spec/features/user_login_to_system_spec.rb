@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-feature 'Admin login to system' do
+feature 'User login to system' do 
   scenario 'successfully' do
-    user = create(:user, role: :admin)
-
+    user = create(:user)
     visit root_path
+
     fill_in 'Email', with: user.email
     fill_in 'Senha', with: user.password
     click_on 'Log in'
@@ -13,8 +13,9 @@ feature 'Admin login to system' do
     expect(page).to have_link('Logout')
   end
 
+
   scenario 'and log out' do
-    user = create(:user, role: :admin)
+    user = create(:user)
 
     visit root_path
     fill_in 'Email', with: user.email
