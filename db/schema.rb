@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_03_135715) do
+ActiveRecord::Schema.define(version: 2019_09_03_191142) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "street"
@@ -32,6 +32,9 @@ ActiveRecord::Schema.define(version: 2019_09_03_135715) do
     t.text "car_options"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "motorization"
+    t.string "fuel_type"
+    t.string "category"
     t.index ["manufacture_id"], name: "index_car_models_on_manufacture_id"
   end
 
