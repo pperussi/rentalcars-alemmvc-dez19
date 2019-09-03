@@ -13,6 +13,10 @@
     <%= f.label :name, 'Nome' %>
     <%= f.text_field :name, class: 'form-control' %>
   </div>
+  <div class="form-group">
+    <%= f.label :cnpj, 'CNPJ' %>
+    <%= f.text_field :cnpj, class: 'form-control' %>
+  </div>
   <h3>Endereço</h3>
   <%= f.fields_for :address do |address_form| %>
     <div class="form-group">

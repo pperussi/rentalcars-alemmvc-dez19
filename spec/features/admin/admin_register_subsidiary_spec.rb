@@ -8,6 +8,7 @@ feature 'Admin register subsidiary' do
     visit root_path
     click_on 'Registrar nova filial'
     fill_in 'Nome', with: 'Rent a car'
+    fill_in 'CNPJ', with: '75.415.539/0001-00'
     fill_in 'Logradouro', with: 'Vila do Chaves'
     fill_in 'Número', with: '71'
     fill_in 'Complemento', with: 'Dentro do barril'
@@ -17,6 +18,7 @@ feature 'Admin register subsidiary' do
     click_on 'Criar filial'
 
     expect(page).to have_content('Rent a car')
+    expect(page).to have_content('75.415.539/0001-00')
     expect(page).to have_content('Endereço')
     expect(page).to have_content('Vila do Chaves, nº 71')
     expect(page).to have_content('Dentro do barril')
@@ -33,6 +35,7 @@ feature 'Admin register subsidiary' do
     click_on 'Criar filial'
 
     expect(page).to have_content('Nome não pode ficar em branco')
+    expect(page).to have_content('CNPJ não pode ficar em branco')
     expect(page).to have_content('Logradouro não pode ficar em branco')
     expect(page).to have_content('Número não pode ficar em branco')
     expect(page).to have_content('Bairro não pode ficar em branco')
