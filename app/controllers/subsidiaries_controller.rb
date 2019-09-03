@@ -8,7 +8,7 @@ before_action :authorize_admin
 
   def new
     @subsidiary = Subsidiary.new
-    @subsidiary.build_address
+    @address = Address.new
   end
 
   def create

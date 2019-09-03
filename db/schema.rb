@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_03_135715) do
+ActiveRecord::Schema.define(version: 2019_09_03_162909) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "street"
@@ -19,10 +19,11 @@ ActiveRecord::Schema.define(version: 2019_09_03_135715) do
     t.string "neighborhood"
     t.string "city"
     t.string "state"
-    t.integer "subsidiary_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["subsidiary_id"], name: "index_addresses_on_subsidiary_id"
+    t.string "addressabble_type"
+    t.integer "addressabble_id"
+    t.index ["addressabble_type", "addressabble_id"], name: "index_addresses_on_addressabble_type_and_addressabble_id"
   end
 
   create_table "car_models", force: :cascade do |t|
@@ -43,6 +44,16 @@ ActiveRecord::Schema.define(version: 2019_09_03_135715) do
     t.string "license_plate"
     t.string "color"
     t.index ["car_model_id"], name: "index_cars_on_car_model_id"
+  end
+
+  create_table "clients", force: :cascade do |t|
+    t.string "name"
+    t.string "cnpj"
+    t.string "cpf"
+    t.string "email"
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "manufactures", force: :cascade do |t|

@@ -1,5 +1,5 @@
 class Address < ApplicationRecord
-  belongs_to :subsidiary
+  belongs_to :addressable, polymorphic: true
 
   validates :street, presence: { message: 'Logradouro não pode ficar em '\
                                           'branco' }
