@@ -21,9 +21,9 @@ ActiveRecord::Schema.define(version: 2019_09_03_162909) do
     t.string "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "addressabble_type"
-    t.integer "addressabble_id"
-    t.index ["addressabble_type", "addressabble_id"], name: "index_addresses_on_addressabble_type_and_addressabble_id"
+    t.string "addressable_type"
+    t.integer "addressable_id"
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"
   end
 
   create_table "car_models", force: :cascade do |t|
