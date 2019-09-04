@@ -4,7 +4,8 @@ feature 'User register car' do
   scenario 'successfully' do
     user = create(:user, role: :user)
     fiat = create(:manufacture, name: 'Fiat')
-    create(:car_model, name: 'Sport', manufacture: fiat )
+    gasolina = create(:fuel_type, name: 'Gasolina')
+    create(:car_model, name: 'Sport', manufacture: fiat, fuel_type: gasolina )
 
     login_as user, scope: :user
     visit root_path
@@ -43,7 +44,8 @@ feature 'User register car' do
   scenario 'and must not be admin to see button' do
     user = create(:user, role: :admin)
     fiat = create(:manufacture, name: 'Fiat')
-    create(:car_model, name: 'Sport', manufacture: fiat )
+    gasolina = create(:fuel_type, name: 'Gasolina')
+    create(:car_model, name: 'Sport', manufacture: fiat, fuel_type: gasolina )
 
     login_as user, scope: :user
     visit root_path

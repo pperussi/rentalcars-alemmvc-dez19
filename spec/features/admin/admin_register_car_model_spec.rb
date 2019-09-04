@@ -4,6 +4,7 @@ feature 'Admin register car model' do
   scenario 'successfully' do
     user = create(:user, role: :admin)
     create(:manufacture, name: 'Fiat')
+    create(:fuel_type, name:'Gasolina')
 
     login_as user, scope: :user
     visit root_path
@@ -13,7 +14,7 @@ feature 'Admin register car model' do
     fill_in 'Ano', with: '2014/2015'
     select 'Fiat', from: 'Fabricante'
     fill_in 'Especificação do motor', with: '1.0'
-    fill_in 'Combustível', with: 'Gasolina'
+    select 'Gasolina', from: 'Combustível'
     fill_in 'Categoria', with: 'A'
     fill_in 'Características', with: '2 portas,5 pessoas'
     click_on 'Enviar'

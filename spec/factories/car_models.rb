@@ -4,7 +4,7 @@ FactoryBot.define do
     year { "MyString" }
     manufacture { nil }
     motorization { "MyString" }
-    fuel_type { "MyString" }
+    fuel_type { nil }
     category { "MyString" }
     car_options { "MyText" }
   end
