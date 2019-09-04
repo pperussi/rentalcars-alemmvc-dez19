@@ -14,6 +14,7 @@ class CarModelsController < ApplicationController
     @car_model = CarModel.new
     @manufactures = Manufacture.all
     @fuel_types = FuelType.all
+    @categories = Category.all
   end
 
   def create
@@ -22,6 +23,7 @@ class CarModelsController < ApplicationController
 
     @manufactures = Manufacture.all
     @fuel_types = FuelType.all
+    @categories = Category.all
     render :new
   end
 
@@ -29,12 +31,14 @@ class CarModelsController < ApplicationController
     @car_model = CarModel.find(params[:id])
     @manufactures = Manufacture.all
     @fuel_types = FuelType.all
+    @categories = Category.all
   end
 
   def update
     @car_model = CarModel.find(params[:id])
     @manufactures = Manufacture.all
     @fuel_types = FuelType.all
+    @categories = Category.all
     if @car_model.update(car_model_params)
       redirect_to @car_model
     else
@@ -45,7 +49,7 @@ class CarModelsController < ApplicationController
   private
   def car_model_params
     params.require(:car_model).permit(%i[name year manufacture_id motorization
-    fuel_type_id category car_options])
+    fuel_type_id category_id car_options])
   end
 
 end

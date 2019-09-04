@@ -5,6 +5,7 @@ feature 'Admin register car model' do
     user = create(:user, role: :admin)
     create(:manufacture, name: 'Fiat')
     create(:fuel_type, name:'Gasolina')
+    create(:category, name: 'A')
 
     login_as user, scope: :user
     visit root_path
@@ -15,7 +16,7 @@ feature 'Admin register car model' do
     select 'Fiat', from: 'Fabricante'
     fill_in 'Especificação do motor', with: '1.0'
     select 'Gasolina', from: 'Combustível'
-    fill_in 'Categoria', with: 'A'
+    select 'A', from: 'Categoria'
     fill_in 'Características', with: '2 portas,5 pessoas'
     click_on 'Enviar'
 
@@ -53,6 +54,7 @@ feature 'Admin register car model' do
   scenario 'and must be admin' do
     user = create(:user)
     create(:manufacture, name: 'Fiat')
+    create(:category, name: 'A')
 
     login_as user, scope: :user
     visit root_path
@@ -63,6 +65,7 @@ feature 'Admin register car model' do
   scenario 'must be admin and uses url' do
     user = create(:user)
     create(:manufacture, name: 'Fiat')
+    create(:category, name: 'A')
 
     login_as user, scope: :user
     visit new_car_model_path

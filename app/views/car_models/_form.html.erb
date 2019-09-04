@@ -30,8 +30,8 @@
     <%= f.collection_select :fuel_type_id, @fuel_types, :id, :name, {}, class: 'form-control' %>
   </div>
   <div class="form-group">
-    <%= f.label :category, 'Categoria' %>
-    <%= f.text_field :category, class: 'form-control' %>
+    <%= f.label :category_id, 'Categoria' %>
+    <%= f.collection_select :category_id, @categories, :id, :name, {}, class: 'form-control' %>
   </div>
   <div class="form-group">
     <%= f.label :car_options, 'Características' %>

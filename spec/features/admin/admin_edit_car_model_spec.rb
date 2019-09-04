@@ -5,8 +5,10 @@ feature 'Admin edit car model' do
     manufacture = create(:manufacture, name: 'Fiat')
     fuel_type = create(:fuel_type, name: 'Gasolina')
     fuel_type2 = create(:fuel_type, name: 'Álcool')
+    categ = create(:category, name: 'A')
+    categ2 = create(:category, name: 'C')
     car_model = create(:car_model, name: 'Fiat Novo Uno', manufacture: manufacture, year: '2014/2015',
-    motorization: '1.0', fuel_type: fuel_type, category: 'A', car_options:
+    motorization: '1.0', fuel_type: fuel_type, category: categ, car_options:
     '2 portas,5 pessoas')
     user = create(:user, role: :admin)
 
@@ -21,7 +23,7 @@ feature 'Admin edit car model' do
     fill_in 'Ano', with: '1990'
     select 'Álcool', from: 'Combustível'
     fill_in 'Especificação do motor', with: '1.3'
-    fill_in 'Categoria', with: 'C'
+    select 'C', from: 'Categoria'
     fill_in 'Características', with: '3 portas'
     click_on 'Enviar'
 
@@ -36,8 +38,9 @@ feature 'Admin edit car model' do
   scenario 'and does not allow saving with invalid data' do
     manufacture = create(:manufacture, name: 'Fiat')
     fuel_type = create(:fuel_type, name: 'Gasolina')
+    categ = create(:category, name: 'A')
     car_model = create(:car_model, name: 'Fiat Novo Uno', manufacture: manufacture, year: '2014/2015',
-    motorization: '1.0', fuel_type: fuel_type, category: 'A', car_options:
+    motorization: '1.0', fuel_type: fuel_type, category: categ, car_options:
     '2 portas,5 pessoas')
     user = create(:user, role: :admin)
 
