@@ -1,14 +1,16 @@
 pt-BR:
   activerecord:
     models:
-      manufacture: 'Fabricante'
+      subsidiary: 'Filial'
     attributes:
-      manufacture:
+      subsidiary:
         name: 'Nome'
+        cnpj: 'CNPJ'
     errors:
       models:
-        manufacture:
+        subsidiary:
           attributes:
             name:
               blank: "não pode ficar em branco."
-
+            cnpj:
+              blank: "não pode ficar em branco."

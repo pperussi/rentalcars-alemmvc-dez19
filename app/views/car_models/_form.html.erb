@@ -10,19 +10,19 @@
 
 <%= form_for car_model do |f| %>
   <div class="form-group">
-    <%= f.label :name, 'Nome' %>
+    <%= f.label :name %>
     <%= f.text_field :name, class: 'form-control' %>
   </div>
   <div class="form-group">
-    <%= f.label :year, 'Ano' %>
+    <%= f.label :year %>
     <%= f.text_field :year, class: 'form-control' %>
   </div>
   <div class="form-group">
-    <%= f.label :manufacture_id, 'Marca' %>
+    <%= f.label :manufacture_id %>
     <%= f.collection_select :manufacture_id, @manufactures, :id, :name, {}, class: 'form-control' %>
   </div>
   <div class="form-group">
-    <%= f.label :car_options, 'Características' %>
+    <%= f.label :car_options %>
     <%= f.text_area :car_options, class: 'form-control' %>
   </div>
   <%= f.submit 'Criar modelo', class: 'btn btn-primary' %>

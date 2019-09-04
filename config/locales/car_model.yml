@@ -1,0 +1,23 @@
+pt-BR:
+  activerecord:
+    models:
+      car_model: 'Modelo'
+    attributes:
+      car_model:
+        name: 'Nome'
+        year: 'Ano'
+        manufacture: 'Fabricante'
+        manufacture_id: 'Fabricante'
+        car_options: 'Características'
+    errors:
+      models:
+        car_model:
+          attributes:
+            name:
+              blank: 'não pode ficar em branco.'
+            year:
+              blank: 'não pode ficar em branco.'
+            manufacture:
+              required: 'é obrigatório.'
+            car_options:
+              blank: 'não pode ficar em branco.'

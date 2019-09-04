@@ -10,7 +10,7 @@ feature 'Admin register car model' do
     click_on 'Registrar novo modelo'
     fill_in 'Nome', with: 'Fiat Novo Uno 1.0'
     fill_in 'Ano', with: '2014/2015'
-    select 'Fiat', from: 'Marca'
+    select 'Fiat', from: 'Fabricante'
     fill_in 'Características', with: '2 portas,5 pessoas'
     click_on 'Criar modelo'
 

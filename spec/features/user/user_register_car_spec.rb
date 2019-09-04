@@ -34,7 +34,7 @@ feature 'User register car' do
     click_on 'Registrar novo carro'
     click_on 'Criar carro'
 
-    expect(page).to have_content('Modelo não pode ficar em branco')
+    expect(page).to have_content('Modelo é obrigatório')
     expect(page).to have_content('Quilometragem não pode ficar em branco')
     expect(page).to have_content('Cor não pode ficar em branco')
     expect(page).to have_content('Placa não pode ficar em branco')
