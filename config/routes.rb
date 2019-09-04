@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   resources :car_models, only: %i[show new create edit index update]
   resources :subsidiaries, only: %i[show new create]
   resources :cars, only: %i[show new create]
+  resources :fuel_type, only: %i[show new create]
 end
