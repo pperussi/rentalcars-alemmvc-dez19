@@ -11,7 +11,7 @@ class ManufacturesController < ApplicationController
   end
 
   def create
-    @manufacture = Manufacture.new(params.require(:manufacture).permit(:name))
+    @manufacture = Manufacture.new(manufacture_params)
     if @manufacture.save
       redirect_to @manufacture
     else
@@ -29,10 +29,16 @@ class ManufacturesController < ApplicationController
 
   def update
     @manufacture = Manufacture.find(params[:id])
-    if @manufacture.update(params.require(:manufacture).permit(:name))
+    if @manufacture.update(manufacture_params)
        redirect_to @manufacture
     else
       render :edit
     end
+  end
+  
+  private
+
+  def manufacture_params
+    params.require(:manufacture).permit(:name)
   end
 end

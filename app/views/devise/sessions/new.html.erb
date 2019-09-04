@@ -1,7 +1,7 @@
 
 <div class="d-flex justify-content-center mt-4">
-  <div class="col-md-6 card p-5">
-    <h2>Log in</h2>
+  <div class="col-md-6 card p-5 login_form">
+    <h2><%= t(".log_in") %></h2>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="form-group">
         <%= f.label :email %><br />
@@ -21,7 +21,7 @@
       <% end %>
 
       <div class="form-group">
-        <%= f.submit "Log in", class: 'btn btn-primary' %>
+        <%= f.submit t(".log_in"), class: 'btn btn-primary' %>
       </div>
     <% end %>
 
