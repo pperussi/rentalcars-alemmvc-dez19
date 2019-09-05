@@ -3,6 +3,7 @@ before_action :authenticate_user!
 before_action :authorize_admin
 
   def index
+    @subsidiaries = Subsidiary.all
   end
 
   def show
@@ -19,6 +20,21 @@ before_action :authorize_admin
     return redirect_to @subsidiary if @subsidiary.save
 
     render :new
+  end
+
+  def edit
+    @subsidiary = Subsidiary.find(params[:id])
+    @address = Address.all
+  end
+
+  def update
+    @subsidiary = Subsidiary.find(params[:id])
+    @address = Address.all
+    if @subsidiary.update(subsidiary_params)
+      redirect_to @subsidiary
+    else
+      render :edit
+    end
   end
 
   private

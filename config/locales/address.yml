@@ -19,8 +19,6 @@ pt-BR:
               blank: 'não pode ficar em branco.'
             number:
               blank: 'não pode ficar em branco.'
-            complement:
-              blank: 'não pode ficar em branco.'
             neighborhood:
               blank: 'não pode ficar em branco.'
             city:

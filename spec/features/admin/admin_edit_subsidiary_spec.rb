@@ -2,7 +2,9 @@ require 'rails_helper'
 
 feature 'Admin edit subsidiary' do
   scenario 'successfully' do
-    subsidiary = create(:subsidiary, name: 'Rent a car', )
+    subsidiary = create(:subsidiary, name: 'Rent a car')
+    address = create(:address, street: 'A. Paulista', number: '100', 
+      neighborhood: 'Cerqueira César', city: 'São Paulo', state: 'SP', subsidiary: subsidiary)
     user = create(:user, role: :admin)
 
     login_as user, scope: :user
@@ -15,7 +17,6 @@ feature 'Admin edit subsidiary' do
     fill_in 'CNPJ', with: '80.325.500/0001-33'
     fill_in 'Logradouro', with: 'Rua da Consolação'
     fill_in 'Número', with: '50'
-    fill_in 'Complemento', with: 'conj. 66'
     fill_in 'Bairro', with: 'Centro'
     fill_in 'Cidade', with: 'S. Paulo'
     fill_in 'Estado', with: 'São Paulo'
@@ -24,13 +25,15 @@ feature 'Admin edit subsidiary' do
     expect(page).to have_content('Car Rental')
     expect(page).to have_content('80.325.500/0001-33')
     expect(page).to have_content('Rua da Consolação')
-    expect(page).to have_content('conj. 66')
     expect(page).to have_content('Centro')
     expect(page).to have_content('S. Paulo')
     expect(page).to have_content('São Paulo')
   end
 
   scenario 'and must fill all fields' do
+    subsidiary = create(:subsidiary, name: 'Rent a car')
+    address = create(:address, street: 'A. Paulista', number: '100', 
+      neighborhood: 'Cerqueira César', city: 'São Paulo', state: 'SP', subsidiary: subsidiary)
     user = create(:user, role: :admin)
 
     login_as user, scope: :user

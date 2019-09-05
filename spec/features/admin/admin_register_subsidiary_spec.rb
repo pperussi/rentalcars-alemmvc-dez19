@@ -16,7 +16,7 @@ feature 'Admin register subsidiary' do
     fill_in 'Bairro', with: 'México'
     fill_in 'Cidade', with: 'São Paulo'
     fill_in 'Estado', with: 'SP'
-    click_on 'Criar filial'
+    click_on 'Enviar'
 
     expect(page).to have_content('Rent a car')
     expect(page).to have_content('75.415.539/0001-00')
@@ -32,8 +32,9 @@ feature 'Admin register subsidiary' do
 
     login_as user, scope: :user
     visit root_path
+    click_on 'Filiais'
     click_on 'Registrar nova filial'
-    click_on 'Criar filial'
+    click_on 'Enviar'
 
     expect(page).to have_content('Nome não pode ficar em branco')
     expect(page).to have_content('CNPJ não pode ficar em branco')
