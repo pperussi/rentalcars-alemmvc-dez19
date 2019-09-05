@@ -1,11 +1,11 @@
 FactoryBot.define do
   factory :address do
-    street { "MyString" }
-    number { "MyString" }
-    complement { "MyString" }
-    neighborhood { "MyString" }
-    city { "MyString" }
-    state { "MyString" }
+    street { "Rua da Consolação" }
+    number { "100" }
+    complement { " conj. 66" }
+    neighborhood { "Cerqueira César" }
+    city { "São Paulo" }
+    state { "SP" }
     subsidiary { nil }
   end
 end

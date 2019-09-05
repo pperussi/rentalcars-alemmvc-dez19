@@ -24,9 +24,12 @@
         </li>
       <% end %>
         <% if current_user.user? %>
-        <li class="nav-item">
-          <%= link_to 'Registrar novo carro', new_car_path, class: 'nav-link' %>
-        </li>
+          <li class="nav-item">
+            <%= link_to 'Registrar novo carro', new_car_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Preços', prices_path, class: 'nav-link' %>
+          </li>
         <% end %>
       <% end %>
     </ul>

@@ -1,0 +1,14 @@
+pt-BR:
+  activerecord:
+    models:
+      price: 'Preço'
+    attributes:
+      price:
+        daily_rate: 'Valor'
+    errors:
+      models:
+        price:
+          attributes:
+            daily_rate:
+              blank: "não pode ficar em branco."
+
