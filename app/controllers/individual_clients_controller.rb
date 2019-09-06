@@ -1,9 +1,9 @@
 class IndividualClientsController < ApplicationController
   before_action :authenticate_user!
 
- def index
-   @individual_clients = IndividualClient.all
- end
+  def index
+    @individual_clients = IndividualClient.all
+  end
 
   def show
     @individual_client = IndividualClient.find(params[:id])

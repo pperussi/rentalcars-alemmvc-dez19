@@ -5,6 +5,10 @@ class CorporateClientsController < ApplicationController
     @corporate_clients = CorporateClient.all
   end
 
+  def show
+    @corporate_client = CorporateClient.find(params[:id])
+  end
+
   def new
     @corporate_client = CorporateClient.new
     @corporate_client.build_address
@@ -17,10 +21,6 @@ class CorporateClientsController < ApplicationController
     else
       render :new
     end
-  end
-
-  def show
-    @corporate_client = CorporateClient.find(params[:id])
   end
 
   private
