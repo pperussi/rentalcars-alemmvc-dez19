@@ -1,0 +1,41 @@
+<h1>Configurar preços de locações</h1>
+<% if !@messages.nil?  %>
+  <div class="alert alert-danger">
+    <ul>
+      <% @messages.each do |message| %>
+        <li><%= message  %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<h2>Filial: <%= @subsidiary.name  %></h2>
+<table class='table'>
+  <thead>
+    <tr>
+      <th scope="col">Categoria</th>
+      <th scope="col">Diária</th>
+      <th scope="col">Seguro do carro</th>
+      <th scope="col">Seguro contra terceiros</th>
+    </tr>
+  </thead>
+  <tbody>
+
+
+<%= form_tag rental_price_subsidiary_path(method: :post) do %>
+  <% @categories.each_with_index do |category, i| %>
+    <tr>
+    <%= fields_for 'rental_prices[]', @rental_prices[i] do |r| %>
+      <div class=<%= "rental_price#{i.to_s}" %>>
+        <td><%= category.name %></td>
+            <%= r.hidden_field(:category_id, :value=>category.id) %></td>
+        <td><%= r.number_field(:daily_rate, class:"daily_rate") %></td>
+        <td><%= r.number_field(:daily_car_insurance, class:"car_insurance") %></td>
+        <td><%= r.number_field(:daily_third_party_insurance, class:"third_party_insurance") %></td>
+    </div>
+    <% end %>
+    </tr>
+  <% end %>
+  <%= submit_tag 'Enviar' %>
+<% end %>
+  </tbody>
+</table>

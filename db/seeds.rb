@@ -1,5 +1,7 @@
 User.create(email: 'user@email.com', password: '123456', role: :user)
 User.create(email: 'admin@email.com', password: '123456', role: :admin)
+Category.create(name: 'A')
+Category.create(name: 'B')
 Manufacture.create(name: 'Fiat')
 Manufacture.create(name: 'Ford')
 FuelType.create(name: 'Gasolina')

@@ -1,0 +1,31 @@
+<h1>Configurar preços de locações</h1>
+<% @subsidiaries.each do |subsidiary| %>
+  <%= link_to subsidiary.name, rental_price_subsidiary_path(subsidiary)  %>
+<% end  %>
+
+
+<% @subsidiaries.each do |subsidiary| %>
+  <h3>Filial: <%= subsidiary.name %></h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Categoria</th>
+      <th scope="col">Diária</th>
+      <th scope="col">Seguro do carro</th>
+      <th scope="col">Seguro contra terceiros</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% subsidiary.rental_prices.each_with_index do |rental_price, i| %>
+  <div class=<%= "rental_price#{i}" %>>
+      <tr>
+        <td><%= rental_price.category.name %></td>
+        <td>R$ <%= rental_price.daily_rate %></td>
+        <td>R$ <%= rental_price.daily_car_insurance %></td>
+        <td>R$ <%= rental_price.daily_third_party_insurance %></td>
+      </tr>
+  </div>
+      <% end %>
+  </tbody>
+</table>
+<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_06_161931) do
+ActiveRecord::Schema.define(version: 2019_11_06_172430) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "street"
@@ -76,6 +76,18 @@ ActiveRecord::Schema.define(version: 2019_09_06_161931) do
     t.integer "subsidiary_id"
     t.index ["category_id"], name: "index_prices_on_category_id"
     t.index ["subsidiary_id"], name: "index_prices_on_subsidiary_id"
+  end
+
+  create_table "rental_prices", force: :cascade do |t|
+    t.float "daily_rate"
+    t.integer "subsidiary_id"
+    t.integer "category_id"
+    t.float "daily_car_insurance"
+    t.float "daily_third_party_insurance"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_rental_prices_on_category_id"
+    t.index ["subsidiary_id"], name: "index_rental_prices_on_subsidiary_id"
   end
 
   create_table "subsidiaries", force: :cascade do |t|

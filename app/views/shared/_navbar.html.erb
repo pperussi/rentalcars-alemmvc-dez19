@@ -22,13 +22,13 @@
         <li class="nav-item">
           <%= link_to 'Fabricantes', manufactures_path, class: 'nav-link' %>
         </li>
+        <li class="nav-item">
+          <%= link_to 'Configurar preços de locações', rental_prices_path, class: 'nav-link' %>
+        </li>
       <% end %>
         <% if current_user.user? %>
           <li class="nav-item">
             <%= link_to 'Registrar novo carro', new_car_path, class: 'nav-link' %>
-          </li>
-          <li class="nav-item">
-            <%= link_to 'Preços', prices_path, class: 'nav-link' %>
           </li>
         <% end %>
       <% end %>
