@@ -15,7 +15,7 @@ class CorporateClientsController < ApplicationController
   end
 
   def create
-    @corporate_client = CorporateClient.new(client_params)
+    @corporate_client = CorporateClient.new(corporate_client_params)
     if @corporate_client.save
       redirect_to @corporate_client
     else
