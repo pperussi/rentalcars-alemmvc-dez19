@@ -6,6 +6,5 @@ FactoryBot.define do
     neighborhood { "MyString" }
     city { "MyString" }
     state { "MyString" }
-    subsidiary { nil }
   end
 end

@@ -3,8 +3,8 @@ require 'rails_helper'
 feature 'Admin edit subsidiary' do
   scenario 'successfully' do
     subsidiary = create(:subsidiary, name: 'Rent a car')
-    address = create(:address, street: 'A. Paulista', number: '100', 
-      neighborhood: 'Cerqueira César', city: 'São Paulo', state: 'SP', subsidiary: subsidiary)
+    subsidiary.create_address!(attributes = {  street: 'A. Paulista', number: '100', 
+      neighborhood: 'Cerqueira César', city: 'São Paulo', state: 'SP' })
     user = create(:user, role: :admin)
 
     login_as user, scope: :user
@@ -32,8 +32,9 @@ feature 'Admin edit subsidiary' do
 
   scenario 'and must fill all fields' do
     subsidiary = create(:subsidiary, name: 'Rent a car')
-    address = create(:address, street: 'A. Paulista', number: '100', 
-      neighborhood: 'Cerqueira César', city: 'São Paulo', state: 'SP', subsidiary: subsidiary)
+    subsidiary.create_address!(attributes = {  street: 'A. Paulista', number: '100', 
+      neighborhood: 'Cerqueira César', city: 'São Paulo', state: 'SP' })
+
     user = create(:user, role: :admin)
 
     login_as user, scope: :user

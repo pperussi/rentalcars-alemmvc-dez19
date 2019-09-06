@@ -34,7 +34,6 @@ module RentalCars
  
     # Set default locale to something other than :en
     I18n.default_locale = :'pt-BR'
-    
     # Don't generate system test files.
     config.generators.system_tests = nil
   end
