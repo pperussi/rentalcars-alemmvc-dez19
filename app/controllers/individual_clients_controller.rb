@@ -23,6 +23,19 @@ class IndividualClientsController < ApplicationController
     end
   end
 
+  def edit
+    @individual_client = IndividualClient.find(params[:id])
+  end
+
+  def update
+    @individual_client = IndividualClient.find(params[:id])
+    if @individual_client.update(individual_client_params)
+      redirect_to @individual_client
+    else
+      render :edit
+    end
+  end
+
   private
 
   def individual_client_params

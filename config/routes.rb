@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   resources :subsidiaries, only: %i[show new create]
   resources :cars, only: %i[show new create]
   resources :clients, only: %i[show new create]
-  resources :individual_clients, only: %i[show new create index]
-  resources :corporate_clients, only: %i[show new create index]
+  resources :individual_clients, only: %i[show new create index edit update]
+  resources :corporate_clients, only: %i[show new create index edit update]
 end

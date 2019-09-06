@@ -23,9 +23,22 @@ class CorporateClientsController < ApplicationController
     end
   end
 
+  def edit
+    @corporate_client = CorporateClient.find(params[:id])
+  end
+
+  def update
+    @corporate_client = CorporateClient.find(params[:id])
+    if @corporate_client.update(corporate_client_params)
+      redirect_to @corporate_client
+    else
+      render :edit
+    end
+  end
+
   private
 
-  def client_params
+  def corporate_client_params
     params.require(:corporate_client)
       .permit(:trade_name, :cnpj, :email, address_attributes: %i[id street number complement
               neighborhood city state])
