@@ -3,5 +3,6 @@ FactoryBot.define do
     email { Faker::Internet.email }
     password { '12345678' }
     role { :user }
+    subsidiary
    end
 end

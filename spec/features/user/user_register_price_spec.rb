@@ -17,11 +17,10 @@ feature 'User register price' do
     fill_in 'Preço', with: '50.00'
     click_on 'Enviar'
 
-    expect(page).to have_content('Rent a Car')
     expect(page).to have_content('Categoria')
     expect(page).to have_content('A')
     expect(page).to have_content('Preço')
-    expect(page).to have_content('R$ 50.00')
+    expect(page).to have_content('R$ 50,00')
   end
 
   scenario 'and must fill all fields' do
@@ -32,13 +31,12 @@ feature 'User register price' do
     categ = create(:category, name: 'A')
     
     login_as user, scope: :user
-    visit_root_path
+    visit root_path
     click_on 'Preços'
     click_on 'Registrar novo preço'
 
     click_on 'Enviar'
 
-    expect(page).to have_content('Categoria é obrigatório')
-    expect(page).to have_content('Preço é obrigatório')
+    expect(page).to have_content('Preço não pode ficar em branco')
   end
 end
