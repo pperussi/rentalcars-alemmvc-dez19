@@ -19,9 +19,7 @@
     </tr>
   </thead>
   <tbody>
-
-
-<%= form_tag rental_price_subsidiary_path(method: :post) do %>
+<%= form_tag rental_price_subsidiary_path(@subsidiary), method: :post do %>
   <% @categories.each_with_index do |category, i| %>
     <tr>
     <%= fields_for 'rental_prices[]', @rental_prices[i] do |r| %>
@@ -35,7 +33,9 @@
     <% end %>
     </tr>
   <% end %>
-  <%= submit_tag 'Enviar' %>
+  <tr>
+    <td> <%= submit_tag 'Enviar' %></td>
+  </tr>
 <% end %>
   </tbody>
 </table>

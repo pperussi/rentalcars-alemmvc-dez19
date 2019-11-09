@@ -16,7 +16,7 @@
     </tr>
   </thead>
   <tbody>
-      <% subsidiary.rental_prices.each_with_index do |rental_price, i| %>
+      <% subsidiary.sub_rental_prices.each_with_index do |rental_price, i| %>
   <div class=<%= "rental_price#{i}" %>>
       <tr>
         <td><%= rental_price.category.name %></td>

@@ -12,7 +12,6 @@ class RentalPricesController < ApplicationController
 
   def create
     @subsidiary = Subsidiary.find(params[:id])
-    @rental_price = ''
     params['rental_prices'].each do |values|
       @rental_price =  RentalPrice.new(rental_price_params(values))
       @rental_price.subsidiary = @subsidiary
@@ -31,7 +30,7 @@ class RentalPricesController < ApplicationController
 
   def rental_price_params(price_params)
     price_params.permit(:daily_rate, :daily_car_insurance,
-                  :daily_third_party_insurance,
-                  :category_id)
+                        :daily_third_party_insurance,
+                        :category_id)
   end
 end
