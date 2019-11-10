@@ -1,8 +1,13 @@
-<h1>Configurar preços de locações</h1>
-<% @subsidiaries.each do |subsidiary| %>
-  <%= link_to subsidiary.name, rental_price_subsidiary_path(subsidiary)  %>
-<% end  %>
+<h1>Preços de locações</h1>
 
+<% if current_user.admin? %>
+<h3>Configurar preços</h3>
+  <% @subsidiaries.each do |subsidiary| %>
+    <ul>
+      <li><%= link_to subsidiary.name, rental_price_subsidiary_path(subsidiary)  %></li>
+    </ul>
+  <% end  %>
+<% end %>
 
 <% @subsidiaries.each do |subsidiary| %>
   <h3>Filial: <%= subsidiary.name %></h3>

@@ -31,7 +31,6 @@ feature 'Admin registers multiple rental prices' do
 
     click_on 'Enviar'
 
-    expect(page).to have_css('h1', text: 'Configurar preços de locações')
     expect(page).to have_css('th', text: 'Categoria')
     expect(page).to have_css('th', text: 'Diária')
     expect(page).to have_css('th', text: 'Seguro do carro')
@@ -113,7 +112,6 @@ feature 'Admin registers multiple rental prices' do
 
     click_on 'Enviar'
 
-    expect(page).to have_css('h1', text: 'Configurar preços de locações')
     expect(page).to have_css('th', text: 'Categoria')
     expect(page).to have_css('th', text: 'Diária')
     expect(page).to have_css('th', text: 'Seguro do carro')
@@ -131,4 +129,32 @@ feature 'Admin registers multiple rental prices' do
       expect(page).to have_css('td', text: 'R$ 43.1')
     end
   end
+
+  scenario 'and must be admin' do
+    subsidiary = create(:subsidiary, name: 'Rent a Car')
+    address = create(:address, street: 'Av. Paulista', number: '100', 
+      neighborhood: 'Cerqueira César', city: 'São Paulo', state: 'SP', subsidiary: subsidiary)
+    user = create(:user, role: :user)
+    create(:category, name: 'A')
+    create(:category, name: 'B')
+
+    login_as user, scope: :user
+    visit root_path
+    click_on 'Preços de locações'
+
+    expect(page).not_to have_content('Configurar preços')
+  end
+
+  scenario 'and user can not acess url' do
+    subsidiary = create(:subsidiary, name: 'Rent a Car')
+    user = create(:user)
+
+    login_as user, scope: :user
+
+    visit rental_price_subsidiary_path(subsidiary)
+
+    expect(current_path).to eq rental_prices_path
+  end
+
+
 end

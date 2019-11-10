@@ -1,4 +1,7 @@
 class RentalPricesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :authenticate_admin, only: %i[new create]
+
   def index
     @subsidiaries = Subsidiary.all
   end
@@ -32,5 +35,9 @@ class RentalPricesController < ApplicationController
     price_params.permit(:daily_rate, :daily_car_insurance,
                         :daily_third_party_insurance,
                         :category_id)
+  end
+
+  def authenticate_admin
+    redirect_to rental_prices_path unless current_user.admin?
   end
 end
