@@ -19,10 +19,11 @@ ActiveRecord::Schema.define(version: 2019_11_11_192342) do
     t.string "neighborhood"
     t.string "city"
     t.string "state"
-    t.integer "subsidiary_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["subsidiary_id"], name: "index_addresses_on_subsidiary_id"
+    t.string "addressable_type"
+    t.integer "addressable_id"
+    t.index ["addressable_type", "addressable_id"], name: "index_addresses_on_addressable_type_and_addressable_id"
   end
 
   create_table "car_models", force: :cascade do |t|
@@ -57,6 +58,17 @@ ActiveRecord::Schema.define(version: 2019_11_11_192342) do
     t.float "daily_rate"
     t.float "third_party_insurance"
     t.float "car_insurance"
+  end
+
+  create_table "clients", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "cpf"
+    t.string "cnpj"
+    t.string "trade_name"
   end
 
   create_table "fuel_types", force: :cascade do |t|

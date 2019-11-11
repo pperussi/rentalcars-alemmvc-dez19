@@ -6,11 +6,10 @@ pt-BR:
       address:
         street: 'Logradouro'
         number: 'Número'
-        complement: 'Complemento'
         neighborhood: 'Bairro'
+        complement: 'Complemento'
         city: 'Cidade'
         state: 'Estado'
-        subsidiary: 'Filial'
     errors:
       models:
         address:
@@ -19,7 +18,9 @@ pt-BR:
               blank: 'não pode ficar em branco.'
             number:
               blank: 'não pode ficar em branco.'
-            neighborhood:
+            neighborhood: 
+              blank: 'não pode ficar em branco.'
+            complement:
               blank: 'não pode ficar em branco.'
             city:
               blank: 'não pode ficar em branco.'
