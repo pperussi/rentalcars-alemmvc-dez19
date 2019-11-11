@@ -22,3 +22,26 @@
   
   <dd class="col-sm-9"><%= link_to 'Editar', edit_subsidiary_path, class: 'btn btn-primary' %></dd>
 </dl>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Categoria</th>
+      <th scope="col">Diária</th>
+      <th scope="col">Seguro do carro</th>
+      <th scope="col">Seguro contra terceiros</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% @subsidiary.rental_prices.each do |rental_price| %>
+  <div class=<%= "rental_price#{rental_price.category.id}" %>>
+      <tr>
+        <td><%= rental_price.category.name %></td>
+        <td>R$ <%= rental_price.daily_rate %></td>
+        <td>R$ <%= rental_price.daily_car_insurance %></td>
+        <td>R$ <%= rental_price.daily_third_party_insurance %></td>
+      </tr>
+  </div>
+      <% end %>
+  </tbody>
+</table>

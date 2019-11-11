@@ -1,14 +1,5 @@
 <h1>Preços de locações</h1>
 
-<% if current_user.admin? %>
-<h3>Configurar preços</h3>
-  <% @subsidiaries.each do |subsidiary| %>
-    <ul>
-      <li><%= link_to subsidiary.name, rental_price_subsidiary_path(subsidiary)  %></li>
-    </ul>
-  <% end  %>
-<% end %>
-
 <% @subsidiaries.each do |subsidiary| %>
   <h3>Filial: <%= subsidiary.name %></h3>
 <table class="table">
@@ -21,8 +12,8 @@
     </tr>
   </thead>
   <tbody>
-      <% subsidiary.sub_rental_prices.each_with_index do |rental_price, i| %>
-  <div class=<%= "rental_price#{i}" %>>
+      <% subsidiary.sub_rental_prices.each do |rental_price| %>
+  <div class=<%= "rental_price#{rental_price.category.id}" %>>
       <tr>
         <td><%= rental_price.category.name %></td>
         <td>R$ <%= rental_price.daily_rate %></td>
@@ -33,4 +24,7 @@
       <% end %>
   </tbody>
 </table>
+  <% if current_user.admin? %>
+    <%= link_to 'Editar valores', rental_price_subsidiary_path(subsidiary), class: 'btn btn-primary' %>
+  <% end %>
 <% end %>

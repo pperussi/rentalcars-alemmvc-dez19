@@ -1,6 +1,4 @@
 class CarsController < ApplicationController
-  before_action :authenticate_user!
-
   def new
     @car = Car.new
     @car_models = CarModel.all

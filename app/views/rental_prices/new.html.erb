@@ -20,10 +20,10 @@
   </thead>
   <tbody>
 <%= form_tag rental_price_subsidiary_path(@subsidiary), method: :post do %>
-  <% @categories.each_with_index do |category, i| %>
+  <% @rental_prices.each do |category, rental_price| %>
     <tr>
-    <%= fields_for 'rental_prices[]', @rental_prices[i] do |r| %>
-      <div class=<%= "rental_price#{i.to_s}" %>>
+    <%= fields_for 'rental_prices[]', rental_price do |r| %>
+      <div class=<%= "rental_price#{category.id}" %>>
         <td><%= category.name %></td>
             <%= r.hidden_field(:category_id, :value=>category.id) %></td>
         <td><%= r.number_field(:daily_rate, class:"daily_rate") %></td>

@@ -1,5 +1,4 @@
 class SubsidiariesController < ApplicationController
-before_action :authenticate_user!
 before_action :authorize_admin
 
   def index
@@ -17,6 +16,13 @@ before_action :authorize_admin
 
   def create
     @subsidiary = Subsidiary.new(subsidiary_params)
+    @categories = Category.all
+    @categories.each do |category|
+      RentalPrice.create!(category: category, subsidiary: @subsidiary,
+                         daily_rate: category.daily_rate,
+                         daily_car_insurance: category.car_insurance,
+                         daily_third_party_insurance: category.third_party_insurance)
+    end
     return redirect_to @subsidiary if @subsidiary.save
 
     render :new
