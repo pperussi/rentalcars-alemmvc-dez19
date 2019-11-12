@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_05_185657) do
+ActiveRecord::Schema.define(version: 2019_11_12_181932) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "street"
@@ -55,6 +55,9 @@ ActiveRecord::Schema.define(version: 2019_09_05_185657) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "daily_rate"
+    t.float "third_party_insurance"
+    t.float "car_insurance"
   end
 
   create_table "clients", force: :cascade do |t|
@@ -80,6 +83,18 @@ ActiveRecord::Schema.define(version: 2019_09_05_185657) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "rental_prices", force: :cascade do |t|
+    t.float "daily_rate"
+    t.integer "subsidiary_id"
+    t.integer "category_id"
+    t.float "daily_car_insurance"
+    t.float "daily_third_party_insurance"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_rental_prices_on_category_id"
+    t.index ["subsidiary_id"], name: "index_rental_prices_on_subsidiary_id"
+  end
+
   create_table "subsidiaries", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -96,8 +111,10 @@ ActiveRecord::Schema.define(version: 2019_09_05_185657) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "role"
+    t.integer "subsidiary_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["subsidiary_id"], name: "index_users_on_subsidiary_id"
   end
 
 end

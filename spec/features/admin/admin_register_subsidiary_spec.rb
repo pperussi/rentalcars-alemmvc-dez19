@@ -3,6 +3,10 @@ require 'rails_helper'
 feature 'Admin register subsidiary' do
   scenario 'successfully' do
     user = create(:user, role: :admin)
+    create(:category, name: 'A', daily_rate: 51.0, car_insurance: 52.0,
+           third_party_insurance: 53.0)
+    create(:category, name: 'B', daily_rate: 54.0, car_insurance: 55.0,
+           third_party_insurance: 56.0)
 
     login_as user, scope: :user
     visit root_path
@@ -25,6 +29,12 @@ feature 'Admin register subsidiary' do
     expect(page).to have_content('Dentro do barril')
     expect(page).to have_content('São Paulo')
     expect(page).to have_content('SP')
+    expect(page).to have_content('R$ 51,0')
+    expect(page).to have_content('R$ 52,0')
+    expect(page).to have_content('R$ 53,0')
+    expect(page).to have_content('R$ 54,0')
+    expect(page).to have_content('R$ 55,0')
+    expect(page).to have_content('R$ 56,0')
   end
 
   scenario 'and must fill all fields' do

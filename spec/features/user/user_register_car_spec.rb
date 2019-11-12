@@ -54,4 +54,16 @@ feature 'User register car' do
 
     expect(page).not_to have_link('Registrar novo carro')
   end
+
+  scenario 'and must be user' do
+    visit root_path
+
+    expect(page).not_to have_content('Registrar novo carro')
+  end
+
+  scenario 'and visitor can not regiser via url' do
+    visit new_car_path
+
+    expect(current_path).to eq new_user_session_path
+  end
 end

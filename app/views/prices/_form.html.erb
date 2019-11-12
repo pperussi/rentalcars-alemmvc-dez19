@@ -1,0 +1,25 @@
+<% if price.errors.any? %>
+  <div class="alert alert-danger">
+    <ul>
+      <% price.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for price do |f| %>
+  <div class="form-group">
+    <%= f.label :subsidiary_id %>
+    <%= f.collection_select :subsidiary_id, @subsidiaries, :id, :name, {}, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :category_id %>
+    <%= f.collection_select :category_id, @categories, :id, :name, {}, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :daily_rate %>
+    <%= f.text_field :daily_rate, class: 'form-control' %>
+  </div>
+  <%= f.submit 'Enviar', class: 'btn btn-primary' %>
+<% end %>

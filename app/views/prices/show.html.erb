@@ -1,0 +1,12 @@
+<dl class="row">
+  <dt class="col-sm-3">Filial</dt>
+  <dd class="col-sm-9"><%= @price.subsidiary.name %></dd>
+
+  <dt class="col-sm-3">Categoria</dt>
+  <dd class="col-sm-9"><%= @price.category.name %></dd>
+
+  <dt class="col-sm-3">Preço</dt>
+  <dd class="col-sm-9"><%= number_to_currency @price.daily_rate %></dd>
+</dl>
+
+<%= link_to 'Voltar', prices_path, class: 'btn btn-primary'%>
