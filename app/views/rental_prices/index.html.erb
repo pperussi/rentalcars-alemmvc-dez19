@@ -2,8 +2,8 @@
 
 <% @subsidiaries.each do |subsidiary| %>
   <h3>Filial: <%= subsidiary.name %></h3>
-<table class="table">
-  <thead>
+<table class='table table-striped'>
+  <thead class='thead-dark'>
     <tr>
       <th scope="col"><%= Category.model_name.human %></th>
       <th scope="col"><%= RentalPrice.human_attribute_name('daily_rate') %></th>
