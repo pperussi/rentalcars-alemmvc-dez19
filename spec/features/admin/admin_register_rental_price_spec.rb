@@ -21,7 +21,7 @@ feature 'Admin registers multiple rental prices' do
     # find('.rental_price1 .third_party_insurance').set('75.0')
 
     within('.rental_price1') do
-      find(:css, '.daily_rate').set('50,0')
+      find(:css, '.daily_rate').set('50.0')
       find(:css, '.car_insurance').set('80.0')
       find(:css, '.third_party_insurance').set('75.0')
     end
@@ -40,15 +40,15 @@ feature 'Admin registers multiple rental prices' do
     expect(page).to have_css('th', text: 'Seguro contra terceiros')
 
     within('.rental_price1') do
-      expect(page).to have_css('td', text: 'R$ 50.0')
-      expect(page).to have_css('td', text: 'R$ 80.0')
-      expect(page).to have_css('td', text: 'R$ 75.0')
+      expect(page).to have_css('td', text: 'R$ 50,0')
+      expect(page).to have_css('td', text: 'R$ 80,0')
+      expect(page).to have_css('td', text: 'R$ 75,0')
     end
 
     within('.rental_price2') do
-      expect(page).to have_css('td', text: 'R$ 54.7')
-      expect(page).to have_css('td', text: 'R$ 56.5')
-      expect(page).to have_css('td', text: 'R$ 43.1')
+      expect(page).to have_css('td', text: 'R$ 54,7')
+      expect(page).to have_css('td', text: 'R$ 56,5')
+      expect(page).to have_css('td', text: 'R$ 43,1')
     end
   end
 
@@ -122,15 +122,15 @@ feature 'Admin registers multiple rental prices' do
     expect(page).to have_css('th', text: 'Seguro contra terceiros')
 
     within('.rental_price1') do
-      expect(page).to have_css('td', text: 'R$ 50.0')
-      expect(page).to have_css('td', text: 'R$ 80.0')
-      expect(page).to have_css('td', text: 'R$ 75.0')
+      expect(page).to have_css('td', text: 'R$ 50,0')
+      expect(page).to have_css('td', text: 'R$ 80,0')
+      expect(page).to have_css('td', text: 'R$ 75,0')
     end
 
     within('.rental_price2') do
-      expect(page).to have_css('td', text: 'R$ 54.7')
-      expect(page).to have_css('td', text: 'R$ 56.5')
-      expect(page).to have_css('td', text: 'R$ 43.1')
+      expect(page).to have_css('td', text: 'R$ 54,7')
+      expect(page).to have_css('td', text: 'R$ 56,5')
+      expect(page).to have_css('td', text: 'R$ 43,1')
     end
   end
 

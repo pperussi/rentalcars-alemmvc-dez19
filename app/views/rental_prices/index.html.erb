@@ -5,10 +5,10 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">Categoria</th>
-      <th scope="col">Diária</th>
-      <th scope="col">Seguro do carro</th>
-      <th scope="col">Seguro contra terceiros</th>
+      <th scope="col"><%= Category.model_name.human %></th>
+      <th scope="col"><%= RentalPrice.human_attribute_name('daily_rate') %></th>
+      <th scope="col"><%= RentalPrice.human_attribute_name('daily_car_insurance') %></th>
+      <th scope="col"><%= RentalPrice.human_attribute_name('daily_third_party_insurance') %></th>
     </tr>
   </thead>
   <tbody>
@@ -16,9 +16,9 @@
   <div class=<%= "rental_price#{rental_price.category.id}" %>>
       <tr>
         <td><%= rental_price.category.name %></td>
-        <td>R$ <%= rental_price.daily_rate %></td>
-        <td>R$ <%= rental_price.daily_car_insurance %></td>
-        <td>R$ <%= rental_price.daily_third_party_insurance %></td>
+        <td><%= number_to_currency(rental_price.daily_rate) %></td>
+        <td><%= number_to_currency(rental_price.daily_car_insurance) %></td>
+        <td><%= number_to_currency(rental_price.daily_third_party_insurance) %></td>
       </tr>
   </div>
       <% end %>

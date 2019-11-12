@@ -12,10 +12,10 @@
 <table class='table'>
   <thead>
     <tr>
-      <th scope="col">Categoria</th>
-      <th scope="col">Diária</th>
-      <th scope="col">Seguro do carro</th>
-      <th scope="col">Seguro contra terceiros</th>
+      <th scope="col"><%= Category.model_name.human %></th>
+      <th scope="col"><%= t('daily_rate') %></th>
+      <th scope="col"><%= t('daily_car_insurance') %></th>
+      <th scope="col"><%= t('daily_third_party_insurance')  %></th>
     </tr>
   </thead>
   <tbody>

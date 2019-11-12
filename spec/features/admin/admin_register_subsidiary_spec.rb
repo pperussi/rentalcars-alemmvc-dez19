@@ -29,12 +29,12 @@ feature 'Admin register subsidiary' do
     expect(page).to have_content('Dentro do barril')
     expect(page).to have_content('São Paulo')
     expect(page).to have_content('SP')
-    expect(page).to have_content('51.0')
-    expect(page).to have_content('52.0')
-    expect(page).to have_content('53.0')
-    expect(page).to have_content('54.0')
-    expect(page).to have_content('55.0')
-    expect(page).to have_content('56.0')
+    expect(page).to have_content('R$ 51,0')
+    expect(page).to have_content('R$ 52,0')
+    expect(page).to have_content('R$ 53,0')
+    expect(page).to have_content('R$ 54,0')
+    expect(page).to have_content('R$ 55,0')
+    expect(page).to have_content('R$ 56,0')
   end
 
   scenario 'and must fill all fields' do
