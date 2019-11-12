@@ -31,7 +31,7 @@ end
 
 group :development, :test do
   gem 'factory_bot_rails'
-  gem 'faker', git: 'https://github.com/stympy/faker.git', branch: 'master'
+  gem 'faker'
   gem 'rspec-rails', '~> 3.8'
 end
 
