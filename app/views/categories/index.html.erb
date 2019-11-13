@@ -7,6 +7,7 @@
       <th scope="col"><%= Category.human_attribute_name('daily_rate') %></th>
       <th scope="col"><%= Category.human_attribute_name('car_insurance') %></th>
       <th scope="col"><%= Category.human_attribute_name('third_party_insurance') %></th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -16,6 +17,7 @@
         <td><%= number_to_currency(category.daily_rate) %></td>
         <td><%= number_to_currency(category.car_insurance) %></td>
         <td><%= number_to_currency(category.third_party_insurance) %></td>
+        <td><%= link_to 'Editar', edit_category_path(category.id) %></td>
       </tr>
     <% end %>
   </tbody>

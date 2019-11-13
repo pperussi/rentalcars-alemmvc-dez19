@@ -7,6 +7,11 @@ before_action :authorize_admin
 
   def show
     @subsidiary = Subsidiary.find(params[:id])
+    @categories = Category.all
+    @rental_prices = []
+    @categories.each do |category|
+      @rental_prices << RentalPrice.where(category: category, subsidiary: @subsidiary).last
+    end
   end
 
   def new

@@ -1,63 +1,53 @@
-<h1>Configurar preços de locações</h1>
-<% if !@messages.nil?  %>
-  <div class="alert alert-danger">
-    <ul>
-      <% @messages.each do |message| %>
-        <li><%= message  %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
-<h2>Filial: <%= @subsidiary.name  %></h2>
-<table class='table table-striped'>
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col"><%= Category.model_name.human %></th>
-      <th scope="col"><%= RentalPrice.human_attribute_name('daily_rate') %></th>
-      <th scope="col"><%= RentalPrice.human_attribute_name('daily_car_insurance') %></th>
-      <th scope="col"><%= RentalPrice.human_attribute_name('daily_third_party_insurance') %></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= form_tag rental_price_subsidiary_path(@subsidiary), method: :post do %>
-  <% @rental_prices.each do |category, rental_price| %>
-    <tr>
-    <%= fields_for 'rental_prices[]', rental_price do |r| %>
-      <div class=<%= "rental_price#{category.id}" %>>
-        <td><%= category.name %></td>
-            <%= r.hidden_field(:category_id, :value=>category.id) %>
-        <td>
-          <div class="input-group mb-0">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">$</span>
-            </div>
-            <%= r.number_field(:daily_rate, class:"daily_rate form-control", describedby: 'basic-addon1') %>
-          </div>
-        </td>
-        <td>
-          <div class="input-group mb-0">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon2">$</span>
-            </div>
-            <%= r.number_field(:daily_car_insurance, class:"car_insurance", describedby: 'basic-addon2') %>
-          </div>
-        </td>
-       
-        <td>
-          <div class="input-group mb-0">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon3">$</span>
-            </div>
-            <%= r.number_field(:daily_third_party_insurance, class:"third_party_insurance", describedby: 'basic-addon3') %>
-          </div>
-        </td>
-    </div>
-    <% end %>
-    </tr>
-  <% end %>
-  <tr>
-    <td> <%= submit_tag 'Enviar', class: 'btn btn-primary' %></td>
-  </tr>
-<% end %>
-  </tbody>
-</table>
+class CarModelsController < ApplicationController
+  before_action :authorize_admin
+
+  def index
+    @car_models = CarModel.all
+  end
+
+  def show
+    @car_model = CarModel.find(params[:id])
+  end
+
+  def new
+    @car_model = CarModel.new
+    @manufactures = Manufacture.all
+    @fuel_types = FuelType.all
+    @categories = Category.all
+  end
+
+  def create
+    @car_model = CarModel.new(car_model_params)
+    return redirect_to @car_model if @car_model.save
+
+    @manufactures = Manufacture.all
+    @fuel_types = FuelType.all
+    @categories = Category.all
+    render :new
+  end
+
+  def edit
+    @car_model = CarModel.find(params[:id])
+    @manufactures = Manufacture.all
+    @fuel_types = FuelType.all
+    @categories = Category.all
+  end
+
+  def update
+    @car_model = CarModel.find(params[:id])
+    @manufactures = Manufacture.all
+    @fuel_types = FuelType.all
+    @categories = Category.all
+    if @car_model.update(car_model_params)
+      redirect_to @car_model
+    else
+      render :edit
+    end
+  end
+
+  private
+  def car_model_params
+    params.require(:car_model).permit(%i[name year manufacture_id motorization
+    fuel_type_id category_id car_options])
+  end
+end

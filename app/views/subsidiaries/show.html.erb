@@ -33,7 +33,7 @@
     </tr>
   </thead>
   <tbody>
-      <% @subsidiary.rental_prices.each do |rental_price| %>
+      <% @rental_prices.each do |rental_price| %>
   <div class=<%= "rental_price#{rental_price.category.id}" %>>
       <tr>
         <td><%= rental_price.category.name %></td>

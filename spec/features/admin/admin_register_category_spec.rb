@@ -38,7 +38,7 @@ feature 'Admin register category' do
     expect(current_path).to eq root_path
   end
 
-  scenario 'and new categories create rental prices' do
+  scenario 'and rental prices are generated automatically' do
     subsidiary = create(:subsidiary, name: 'Herickson')
     other_subsidiary = create(:subsidiary, name: 'Claudionor')
     user = create(:user, role: :admin)
@@ -56,8 +56,14 @@ feature 'Admin register category' do
     rental_prices = RentalPrice.all
     expect(rental_prices[0].category.name).to eq 'Deluxe'
     expect(rental_prices[0].subsidiary.name).to eq 'Herickson'
+    expect(rental_prices[0].daily_rate).to eq 50.8
+    expect(rental_prices[0].daily_car_insurance).to eq 51.4
+    expect(rental_prices[0].daily_third_party_insurance).to eq 52.3
     expect(rental_prices[1].category.name).to eq 'Deluxe'
     expect(rental_prices[1].subsidiary.name).to eq 'Claudionor'
+    expect(rental_prices[1].daily_rate).to eq 50.8
+    expect(rental_prices[1].daily_car_insurance).to eq 51.4
+    expect(rental_prices[1].daily_third_party_insurance).to eq 52.3
   end
 
   scenario 'and must fill all fields' do
