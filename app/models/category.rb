@@ -1,4 +1,4 @@
 class Category < ApplicationRecord
-  validates :name, presence: true
+  validates :name, :daily_rate, :car_insurance, :third_party_insurance, presence: true
   has_many :rental_prices
 end
