@@ -7,9 +7,10 @@ feature 'Admin edit car model' do
     fuel_type2 = create(:fuel_type, name: 'Álcool')
     categ = create(:category, name: 'A')
     categ2 = create(:category, name: 'C')
-    car_model = create(:car_model, name: 'Fiat Novo Uno', manufacture: manufacture, year: '2014/2015',
-    motorization: '1.0', fuel_type: fuel_type, category: categ, car_options:
-    '2 portas,5 pessoas')
+    car_model = create(:car_model, name: 'Fiat Novo Uno', 
+                       manufacture: manufacture, year: '2014/2015',
+                       motorization: '1.0', fuel_type: fuel_type,
+                       category: categ, car_options: '2 portas,5 pessoas')
     user = create(:user, role: :admin)
 
     login_as user, scope: :user
@@ -39,9 +40,10 @@ feature 'Admin edit car model' do
     manufacture = create(:manufacture, name: 'Fiat')
     fuel_type = create(:fuel_type, name: 'Gasolina')
     categ = create(:category, name: 'A')
-    car_model = create(:car_model, name: 'Fiat Novo Uno', manufacture: manufacture, year: '2014/2015',
-    motorization: '1.0', fuel_type: fuel_type, category: categ, car_options:
-    '2 portas,5 pessoas')
+    car_model = create(:car_model, name: 'Fiat Novo Uno', 
+                       manufacture: manufacture, year: '2014/2015',
+                       motorization: '1.0', fuel_type: fuel_type,
+                       category: categ, car_options: '2 portas,5 pessoas')
     user = create(:user, role: :admin)
 
     login_as user, scope: :user
@@ -53,5 +55,4 @@ feature 'Admin edit car model' do
 
     expect(page).to have_content('Nome não pode ficar em branco')
   end
-
 end
