@@ -51,4 +51,55 @@ feature 'User schedules rental' do
     expect(page).to have_content('Data de início deve ser definida')
     expect(page).to have_content('Data de término deve ser definida')
   end
+
+  scenario 'and end date must be greater then start date' do
+    subsidiary = create(:subsidiary, name: 'Almeida Motors')
+    user = create(:user, subsidiary: subsidiary)
+    category = create(:category, name: 'A', daily_rate: 10, car_insurance: 20,
+                      third_party_insurance: 20)
+    create(:individual_client, name: 'Claudionor',
+                    cpf: '318.421.176-43', email: 'cro@email.com')
+    login_as user, scope: :user
+
+    visit root_path
+    click_on 'Locações'
+    click_on 'Agendar locação'
+    find(:css, '.start_date').set('3000-01-07')
+    find(:css, '.end_date').set('3000-01-01')
+    find(:css, '#inputGroupSelect01').set('Claudionor')
+    find(:css, '#inputGroupSelect02').set('A')
+    click_on 'Agendar'
+
+    expect(page).to have_content('Data de início não pode ser maior que data de término')
+  end
+
+  scenario 'and cars of the chosen category must be available' do
+    subsidiary = create(:subsidiary, name: 'Almeida Motors')
+    user = create(:user, subsidiary: subsidiary)
+    category = create(:category, name: 'A', daily_rate: 10, car_insurance: 20,
+                      third_party_insurance: 20)
+    other_category = create(:category, name: 'B', daily_rate: 10, car_insurance: 20,
+                      third_party_insurance: 20)
+    manufacture = create(:manufacture)
+    fuel_type = create(:fuel_type)
+    create(:individual_client, name: 'Claudionor',
+                    cpf: '318.421.176-43', email: 'cro@email.com')
+    car_model = create(:car_model, manufacture: manufacture,
+                       fuel_type: fuel_type, category: category)
+    car = create(:car, car_model: car_model)
+    create(:rental, start_date)
+
+    login_as user, scope: :user
+
+    visit root_path
+    click_on 'Locações'
+    click_on 'Agendar locação'
+    find(:css, '.start_date').set('3000-01-07')
+    find(:css, '.end_date').set('3000-01-01')
+    find(:css, '#inputGroupSelect01').set('Claudionor')
+    find(:css, '#inputGroupSelect02').set('B')
+    click_on 'Agendar'
+
+    expect(page).to have_content('Não há carros da categoria disponíveis para essa data.')
+  end
 end

@@ -11,7 +11,7 @@ class CorporateClient < Client
     self.cnpj
   end
 
-  def described_client
+  def client_description
     "#{self.name} | CNPJ: #{self.cpf} | #{self.email}"
   end
 end

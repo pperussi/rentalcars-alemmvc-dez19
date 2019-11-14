@@ -3,7 +3,7 @@ class IndividualClient < Client
   validates :email, presence: true
   validates :cpf, presence: true
 
-  def described_client
+  def client_description
     "#{self.name} | CPF: #{self.cpf} | #{self.email}"
   end
 end

@@ -25,7 +25,7 @@
   <div class="input-group-prepend">
     <label class="input-group-text" for="inputGroupSelect01"><%= Rental.human_attribute_name('client') %></label>
   </div>
-  <%= f.collection_select(:client_id, @clients, :id, :described_client, {}, { class: "custom-select", id: "inputGroupSelect01" }) %>
+  <%= f.collection_select(:client_id, @clients, :id, :client_description, {}, { class: "custom-select", id: "inputGroupSelect01" }) %>
 </div>
 <div class="input-group mb-3">
   <div class="input-group-prepend">

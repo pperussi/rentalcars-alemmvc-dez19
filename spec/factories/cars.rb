@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :car do
-    car_model { nil }
-    cor { "MyString" }
-    placa { "MyString" }
-    car_km { 1 }
+    car_model { car_model }
+    color { "Dourado" }
+    license_plate { "CCC-000" }
+    car_km { 100 }
   end
 end
