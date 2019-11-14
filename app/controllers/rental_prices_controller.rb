@@ -22,8 +22,11 @@ class RentalPricesController < ApplicationController
       @rental_price.subsidiary = @subsidiary
       if !@rental_price.save
         @categories = Category.all
-        @rental_prices = []
-        @categories.count.times { @rental_prices << RentalPrice.new }
+        @rental_prices = {}
+        @categories.each do |category|
+          rental_price = RentalPrice.where(category: category, subsidiary: @subsidiary).last
+          @rental_prices[category] = rental_price if rental_price
+        end
         @messages = @rental_price.errors.full_messages
         return render :new
       end

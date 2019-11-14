@@ -3,5 +3,12 @@ class Rental < ApplicationRecord
   belongs_to :client
   belongs_to :category
   belongs_to :subsidiary
-  belongs_to :rental_price
+  validates :start_date, :end_date, :price_projection, presence: true
+
+  def calculate_price_projection
+    return 0 unless self.start_date && self.end_date && self.category
+    days = (self.end_date - self.start_date).to_i
+    value = self.category.daily_rate + self.category.car_insurance + self.category.third_party_insurance
+    days * value
+  end
 end

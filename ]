@@ -13,10 +13,13 @@ class RentalsController < ApplicationController
     @rental = Rental.new(rental_params)
     subsidiary = current_subsidiary
     category = Category.find(params['rental']['category_id'])
+    rental_price = RentalPrice.where(category: category,
+                                     subsidiary: subsidiary).last
     @rental.subsidiary = subsidiary
-    @rental.status = :scheduled
-    @rental.price_projection = @rental.calculate_price_projection
+    @rental.rental_price = rental_price
     if @rental.save
+      flash[:alert] = "Locação agendada"
+      @price_projection = @rental.calculate_price_projection
       redirect_to rental_path(@rental.id)
     else
       @clients = Client.all

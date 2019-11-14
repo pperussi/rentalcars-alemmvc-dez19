@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_13_193934) do
+ActiveRecord::Schema.define(version: 2019_11_14_162330) do
 
   create_table "addresses", force: :cascade do |t|
     t.string "street"
@@ -102,12 +102,11 @@ ActiveRecord::Schema.define(version: 2019_11_13_193934) do
     t.integer "category_id"
     t.integer "subsidiary_id"
     t.integer "status"
-    t.integer "rental_price_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "price_projection"
     t.index ["category_id"], name: "index_rentals_on_category_id"
     t.index ["client_id"], name: "index_rentals_on_client_id"
-    t.index ["rental_price_id"], name: "index_rentals_on_rental_price_id"
     t.index ["subsidiary_id"], name: "index_rentals_on_subsidiary_id"
   end
 
