@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
 
+gem 'active_storage_validations'
 gem 'rails', '~> 5.2.3'
 gem 'sqlite3'
 gem 'puma', '~> 3.11'
@@ -10,7 +11,6 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'mini_racer', platforms: :ruby
 gem 'coffee-rails', '~> 4.2'
-# gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootstrap', '~> 4.3.1'
 gem 'jquery-rails'
