@@ -4,5 +4,6 @@ FactoryBot.define do
     color { "Dourado" }
     license_plate { "CCC-000" }
     car_km { 100 }
+    status { :available }
   end
 end

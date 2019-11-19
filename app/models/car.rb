@@ -1,4 +1,5 @@
 class Car < ApplicationRecord
+  enum status: { available: 0, unavailable: 10 }
   belongs_to :car_model
 
   validates :car_km, presence: true

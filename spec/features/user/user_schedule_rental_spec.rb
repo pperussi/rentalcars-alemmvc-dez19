@@ -4,10 +4,15 @@ feature 'User schedules rental' do
   scenario 'successfully' do
     subsidiary = create(:subsidiary, name: 'Almeida Motors')
     user = create(:user, subsidiary: subsidiary)
+    manufacture = create(:manufacture)
+    fuel_type = create(:fuel_type)
     category = create(:category, name: 'A', daily_rate: 10, car_insurance: 20,
                       third_party_insurance: 20)
     create(:individual_client, name: 'Claudionor',
                     cpf: '318.421.176-43', email: 'cro@email.com')
+    car_model = create(:car_model, name: 'Sedan', manufacture: manufacture,
+                       fuel_type: fuel_type, category: category)
+    car = create(:car, car_model: car_model)
     login_as user, scope: :user
 
     visit root_path
@@ -33,10 +38,15 @@ feature 'User schedules rental' do
   scenario 'and must fill all fields' do
     subsidiary = create(:subsidiary, name: 'Almeida Motors')
     user = create(:user, subsidiary: subsidiary)
+    manufacture = create(:manufacture)
+    fuel_type = create(:fuel_type)
     category = create(:category, name: 'A', daily_rate: 10, car_insurance: 20,
                       third_party_insurance: 20)
     create(:individual_client, name: 'Claudionor',
                     cpf: '318.421.176-43', email: 'cro@email.com')
+    car_model = create(:car_model, name: 'Sedan', manufacture: manufacture,
+                       fuel_type: fuel_type, category: category)
+    car = create(:car, car_model: car_model)
     login_as user, scope: :user
 
     visit root_path
@@ -55,10 +65,15 @@ feature 'User schedules rental' do
   scenario 'and end date must be greater then start date' do
     subsidiary = create(:subsidiary, name: 'Almeida Motors')
     user = create(:user, subsidiary: subsidiary)
+    manufacture = create(:manufacture)
+    fuel_type = create(:fuel_type)
     category = create(:category, name: 'A', daily_rate: 10, car_insurance: 20,
                       third_party_insurance: 20)
     create(:individual_client, name: 'Claudionor',
                     cpf: '318.421.176-43', email: 'cro@email.com')
+    car_model = create(:car_model, name: 'Sedan', manufacture: manufacture,
+                       fuel_type: fuel_type, category: category)
+    car = create(:car, car_model: car_model)
     login_as user, scope: :user
 
     visit root_path
@@ -78,28 +93,28 @@ feature 'User schedules rental' do
     user = create(:user, subsidiary: subsidiary)
     category = create(:category, name: 'A', daily_rate: 10, car_insurance: 20,
                       third_party_insurance: 20)
-    other_category = create(:category, name: 'B', daily_rate: 10, car_insurance: 20,
-                      third_party_insurance: 20)
+    other_category = create(:category, name: 'B', daily_rate: 10,
+                            car_insurance: 20,
+                            third_party_insurance: 20)
     manufacture = create(:manufacture)
     fuel_type = create(:fuel_type)
-    create(:individual_client, name: 'Claudionor',
-                    cpf: '318.421.176-43', email: 'cro@email.com')
-    car_model = create(:car_model, manufacture: manufacture,
+    create(:individual_client, name: 'Claudionor', cpf: '318.421.176-43',
+           email: 'cro@email.com')
+    car_model = create(:car_model, name: 'Sedan', manufacture: manufacture,
                        fuel_type: fuel_type, category: category)
-    car = create(:car, car_model: car_model)
-    create(:rental, start_date)
-
+    car = create(:car, car_model: car_model, status: :unavailable)
     login_as user, scope: :user
+    create(:rental, )
 
     visit root_path
     click_on 'Locações'
     click_on 'Agendar locação'
-    find(:css, '.start_date').set('3000-01-07')
-    find(:css, '.end_date').set('3000-01-01')
+    find(:css, '.start_date').set('3000-01-01')
+    find(:css, '.end_date').set('3000-01-02')
     find(:css, '#inputGroupSelect01').set('Claudionor')
     find(:css, '#inputGroupSelect02').set('B')
     click_on 'Agendar'
 
-    expect(page).to have_content('Não há carros da categoria disponíveis para essa data.')
+    expect(page).to have_content('Não há carros disponíveis na categoria escolhida.')
   end
 end
