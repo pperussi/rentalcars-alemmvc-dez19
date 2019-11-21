@@ -17,4 +17,5 @@ Rails.application.routes.draw do
   resources :corporate_clients, only: %i[show new create index edit update]
   resources :categories, only: %i[index new create edit update]
   resources :rentals, only: %i[index new create show]
+  resources :addons, only: %i[index new create edit update]
 end
