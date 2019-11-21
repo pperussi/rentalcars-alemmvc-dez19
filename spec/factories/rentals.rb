@@ -5,7 +5,6 @@ FactoryBot.define do
     client { nil }
     category { nil }
     subsidiary { nil }
-    status { 1 }
-    rental_price { nil }
+    status { 0 }
   end
 end
