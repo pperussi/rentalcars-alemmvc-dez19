@@ -1,5 +1,5 @@
 class Rental < ApplicationRecord
-  before_create :generate_reservation_number
+  before_create :generate_reservation_code
   enum status: { scheduled: 0, ongoing: 1, finalized: 2 }
   belongs_to :client
   belongs_to :category
@@ -47,7 +47,7 @@ class Rental < ApplicationRecord
     scheduled_rentals.count >= available_cars_at_category.count
   end
 
-  def generate_reservation_number
+  def generate_reservation_code
     self.reservation_code = loop do
       token = generate_random_token
       break token unless Rental.exists?(reservation_code: token)

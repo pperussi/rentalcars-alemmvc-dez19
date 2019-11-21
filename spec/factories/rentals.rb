@@ -6,5 +6,15 @@ FactoryBot.define do
     category { nil }
     subsidiary { nil }
     status { 0 }
+
+    trait :without_callbacks do
+      after(:build) do |rental|
+        rental.class.skip_callback(:create, :generate_reservation_code)
+      end
+
+      after(:create) do |rental|
+        rental.class.set_callback(:create, :generate_reservation_code)
+      end
+    end
   end
 end
