@@ -8,7 +8,7 @@ RSpec.describe Rental, type: :model do
       expect(rental.send(:generate_random_token)).to match(/[0-9A-Z]{6}/)
     end
   end
-  
+
   context '#generate_reservation_number' do
     it 'should generate a random reservation code on create' do
       subsidiary = create(:subsidiary, name: 'Almeida Motors')
@@ -16,7 +16,7 @@ RSpec.describe Rental, type: :model do
                       third_party_insurance: 20)
       customer = create(:individual_client, name: 'Claudionor',
                     cpf: '318.421.176-43', email: 'cro@email.com')
-      manufacture = create(:manufacture)
+      manufacture = create(:manufacture, name: 'Fiat')
       fuel_type = create(:fuel_type)
       car_model = create(:car_model, name: 'Sedan', manufacture: manufacture,
                        fuel_type: fuel_type, category: category)

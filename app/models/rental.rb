@@ -48,7 +48,7 @@ class Rental < ApplicationRecord
   end
 
   def generate_reservation_number
-    self.reservation_number = loop do
+    self.reservation_code = loop do
       token = generate_random_token
       break token unless Rental.exists?(reservation_code: token)
     end
