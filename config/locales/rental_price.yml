@@ -12,11 +12,13 @@ pt-BR:
         category_id: 'Categoria'
         subsidiary: 'Filial'
     errors:
-      attributes:
-        daily_rate:
-          blank: 'não pode ficar em branco.'
-        daily_car_insurance:
-          blank: 'não pode ficar em branco.'
-        daily_third_party_insurance:
-          blank: 'não pode ficar em branco.'
+      models:
+        rental_price:
+          attributes:
+            daily_rate:
+              blank: 'não pode ficar em branco.'
+            daily_car_insurance:
+              blank: 'não pode ficar em branco.'
+            daily_third_party_insurance:
+              blank: 'não pode ficar em branco.'
 

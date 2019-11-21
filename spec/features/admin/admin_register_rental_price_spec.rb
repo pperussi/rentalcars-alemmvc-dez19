@@ -16,10 +16,6 @@ feature 'Admin registers multiple rental prices' do
     click_on 'Configurar preços de locações'
     click_on 'Editar valores'
 
-    # find('.rental_price1 .daily_rate').set('50.0')
-    # find('.rental_price1 .car_insurance').set('80.0')
-    # find('.rental_price1 .third_party_insurance').set('75.0')
-
     within('.rental_price1') do
       find(:css, '.daily_rate').set('50.0')
       find(:css, '.car_insurance').set('80.0')
@@ -52,13 +48,15 @@ feature 'Admin registers multiple rental prices' do
     end
   end
 
- xscenario 'and must fill all fields' do
+  scenario 'and must fill all fields' do
     subsidiary = create(:subsidiary, name: 'Rent a Car')
     subsidiary.create_address!(attributes = { street: 'A. Paulista', number: '100', 
       neighborhood: 'Cerqueira César', city: 'São Paulo', state: 'SP' })
     user = create(:user, role: :admin)
-    create(:category, name: 'A')
-    create(:category, name: 'B')
+    category_a = create(:category, name: 'A')
+    category_b = create(:category, name: 'B')
+    create(:rental_price, category: category_a, subsidiary: subsidiary)
+    create(:rental_price, category: category_b, subsidiary: subsidiary)
 
     login_as user, scope: :user
     visit root_path
@@ -66,9 +64,9 @@ feature 'Admin registers multiple rental prices' do
     click_on 'Editar valores'
 
     within('.rental_price1') do
-      find(:css, '.daily_rate').set('50.00')
-      find(:css, '.car_insurance').set('80.00')
-      find(:css, '.third_party_insurance').set('75.00')
+      find(:css, '.daily_rate').set('')
+      find(:css, '.car_insurance').set('')
+      find(:css, '.third_party_insurance').set('')
     end
 
     within('.rental_price2') do

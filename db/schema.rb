@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_14_200108) do
+ActiveRecord::Schema.define(version: 2019_11_21_163247) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 2019_11_14_200108) do
     t.datetime "updated_at", null: false
     t.string "license_plate"
     t.string "color"
+    t.integer "status", default: 0
     t.index ["car_model_id"], name: "index_cars_on_car_model_id"
   end
 
@@ -121,6 +122,22 @@ ActiveRecord::Schema.define(version: 2019_11_14_200108) do
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_rental_prices_on_category_id"
     t.index ["subsidiary_id"], name: "index_rental_prices_on_subsidiary_id"
+  end
+
+  create_table "rentals", force: :cascade do |t|
+    t.date "start_date"
+    t.date "end_date"
+    t.integer "client_id"
+    t.integer "category_id"
+    t.integer "subsidiary_id"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float "price_projection"
+    t.string "reservation_code"
+    t.index ["category_id"], name: "index_rentals_on_category_id"
+    t.index ["client_id"], name: "index_rentals_on_client_id"
+    t.index ["subsidiary_id"], name: "index_rentals_on_subsidiary_id"
   end
 
   create_table "subsidiaries", force: :cascade do |t|
