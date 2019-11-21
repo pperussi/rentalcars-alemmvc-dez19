@@ -25,14 +25,33 @@ class RentalsController < ApplicationController
     end
   end
 
+  def confirm
+    @rental = Rental.find(params[:id])
+    @rental.update(rental_params)
+    byebug
+    render :confirm
+  end
+
   def show
     @rental = Rental.find(params[:id])
+  end
+
+  def search
+    @rental = Rental.find_by(reservation_code: params[:q])
+    return redirect_to review_rental_path(@rental) if @rental
+  end
+
+  def review
+    @rental = Rental.find(params[:id])
+    @rental.in_review!
+    @rental.available_cars.each { |car| @rental.rental_items.build(car: car) }
   end
 
   private
 
   def rental_params
     params.require(:rental).permit(:category_id, :client_id, :start_date,
-                                   :end_date)
+                                   :end_date,
+                                   rental_items_attributes: [:car_id])
   end
 end

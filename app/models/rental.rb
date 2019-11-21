@@ -1,11 +1,14 @@
 class Rental < ApplicationRecord
   before_create :generate_reservation_code
-  enum status: { scheduled: 0, ongoing: 1, finalized: 2 }
+  enum status: { scheduled: 0, in_review: 5, ongoing: 10, finalized: 15 }
   belongs_to :client
   belongs_to :category
   belongs_to :subsidiary
   validates :start_date, :end_date, :price_projection, presence: true
-  validate :start_cannot_be_greater_than_end, :cars_available, :price_cannot_be_zero
+  validate :start_cannot_be_greater_than_end, :price_cannot_be_zero
+  validate :cars_available, on: :create
+  has_many :rental_items
+  accepts_nested_attributes_for :rental_items
 
   def calculate_price_projection
     return 0 unless start_date && end_date && category
@@ -20,6 +23,10 @@ class Rental < ApplicationRecord
     if start_date > end_date
       errors.add(:start_date, 'não pode ser maior que data de término.')
     end
+  end
+
+  def available_cars
+    category.cars.where(status: :available)
   end
 
   def cars_available
