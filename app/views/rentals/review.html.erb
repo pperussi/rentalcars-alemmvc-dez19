@@ -8,7 +8,7 @@
 <p><%= Rental.human_attribute_name('subsidiary') %>: <%= @rental.subsidiary.name %>
 <p><%= Rental.human_attribute_name('category') %>: <%= @rental.category.name  %>
 <p><%= Rental.human_attribute_name('price_projection') %>: <%= number_to_currency(@rental.price_projection) %>
-<%= form_with url: confirm_rental_path, method: :post do |f| %>
+<%= form_with url: confirm_rental_path, method: :post, data: { remote: false } do |f| %>
   <%= f.collection_radio_buttons :car_id, @cars, :id, :license_plate %>
   <%= f.collection_check_boxes :addon_ids, @addons, :id, :name, include_hidden: false %>
   <%= f.submit 'Iniciar locação' %>

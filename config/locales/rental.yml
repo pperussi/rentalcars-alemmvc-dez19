@@ -13,6 +13,7 @@ pt-BR:
         client: 'Cliente'
         client_id: 'Cliente'
         price_projection: 'Valor estimado'
+        reservation_code: 'Código do agendamento'
     errors:
       models:
         rental:

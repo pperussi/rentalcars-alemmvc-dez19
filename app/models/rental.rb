@@ -18,6 +18,13 @@ class Rental < ApplicationRecord
     days * value
   end
 
+  def calculate_final_price
+    days = (end_date - start_date).to_i
+    value = 0
+    rental_items.each { |rental_item| value += rental_item.daily_rate }
+    days * value
+  end
+
   def start_cannot_be_greater_than_end
     return 0 if start_date.nil? || end_date.nil?
     if start_date > end_date
