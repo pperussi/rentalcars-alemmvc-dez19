@@ -12,3 +12,4 @@
 <% end %>
 <p><%= Rental.human_attribute_name('price_projection') %>: <%= number_to_currency(@rental.price_projection) %>
 <p><%= Rental.human_attribute_name('license_plate') %>: <%= @car.license_plate %><p>
+<%= link_to 'Confirmar', start_rental_path, method: :post %>

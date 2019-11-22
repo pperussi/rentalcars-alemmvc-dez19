@@ -60,6 +60,11 @@ class RentalsController < ApplicationController
     @addons = Addon.joins(:addon_items).where(addon_items: { status: :available  }).group(:id)
   end
 
+  def start
+    @rental = Rental.find(params[:id])
+    @rental.ongoing!
+    redirect_to @rental
+  end
   private
 
   def rental_params

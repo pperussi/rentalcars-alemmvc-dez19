@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     member do
       get 'review'
       post 'confirm'
+      post 'start'
     end
   end
 
