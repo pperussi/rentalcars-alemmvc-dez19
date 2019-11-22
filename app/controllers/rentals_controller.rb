@@ -26,15 +26,22 @@ class RentalsController < ApplicationController
 
   def confirm
     @rental = Rental.find(params[:id])
-    @car = Car.find(params[:car_id])
-    @rental.rental_items.create(rentable: @car, daily_rate: @car.category.daily_rate + @car.category.third_party_insurance + @car.category.car_insurance)
-    addons = Addon.find(params[:addon_ids])
-    addon_items = addons.map { |addon| addon.first_available_item }
-    addon_items.each do |addon_item|
-      @rental.rental_items.create(rentable: addon_item, daily_rate: addon_item.addon.daily_rate)
+    if @car = Car.find_by(id: params[:car_id])
+      @rental.rental_items.create(rentable: @car, daily_rate: @car.category.daily_rate + @car.category.third_party_insurance + @car.category.car_insurance)
+      if addons = Addon.where(id: params[:addon_ids])
+        addon_items = addons.map { |addon| addon.first_available_item }
+        addon_items.each do |addon_item|
+          @rental.rental_items.create(rentable: addon_item, daily_rate: addon_item.addon.daily_rate)
+        end
+      end
+      @rental.update(price_projection: @rental.calculate_final_price)
+      render :confirm
+    else
+      flash[:alert] = "Carro deve ser selecionado"
+      @cars = @rental.available_cars
+      @addons = Addon.joins(:addon_items).where(addon_items: { status: :available  }).group(:id)
+      render :review
     end
-    @rental.update(price_projection: @rental.calculate_final_price)
-    render :confirm
   end
 
   def show
