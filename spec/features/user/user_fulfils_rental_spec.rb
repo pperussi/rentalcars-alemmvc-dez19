@@ -12,7 +12,7 @@ feature 'User fulfils rental' do
                     cpf: '318.421.176-43', email: 'cro@email.com')
     car_model = create(:car_model, name: 'Sedan', manufacture: manufacture,
                        fuel_type: fuel_type, category: category)
-    create(:car, car_model: car_model)
+    car = create(:car, car_model: car_model)
     rental = create(:rental, category: category, subsidiary: subsidiary,
                     start_date: '3000-01-08', end_date: '3000-01-10',
                     client: customer, price_projection: 100, status: :scheduled)
@@ -30,6 +30,7 @@ feature 'User fulfils rental' do
     expect(page).to have_content('Locação de: Claudionor')
     expect(page).to have_content('CPF/CNPJ: 318.421.176-43')
     expect(page).to have_content('E-mail: cro@email.com')
+    expect(page).to have_content(car.license_plate)
     expect(rental.reload).to be_in_review
   end
 
@@ -49,6 +50,9 @@ feature 'User fulfils rental' do
     rental = create(:rental, category: category, subsidiary: subsidiary,
                     start_date: '3000-01-08', end_date: '3000-01-10',
                     client: customer, price_projection: 100, status: :scheduled)
+    create(:addon, name: 'Bebê conforto')
+    create(:addon, name: 'GPS')
+    create(:addon, name: 'Porta celular')
     login_as user, scope: :user
 
     visit root_path
@@ -56,6 +60,8 @@ feature 'User fulfils rental' do
     fill_in 'Código da reserva', with: rental.reservation_code
     click_on 'Buscar'
     choose 'TLA-090'
+    check('Bebê conforto')
+    check('GPS')
     click_on 'Iniciar locação'
 
     expect(page).to have_content('Confirmar dados da locação')

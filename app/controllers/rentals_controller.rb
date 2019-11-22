@@ -12,7 +12,6 @@ class RentalsController < ApplicationController
   def create
     @rental = Rental.new(rental_params)
     subsidiary = current_subsidiary
-    category = Category.find(params['rental']['category_id'])
     @rental.subsidiary = subsidiary
     @rental.status = :scheduled
     @rental.price_projection = @rental.calculate_price_projection
@@ -27,8 +26,11 @@ class RentalsController < ApplicationController
 
   def confirm
     @rental = Rental.find(params[:id])
-    @rental.update(rental_params)
-    byebug
+    car = Car.find(params[:car_id])
+    @rental.rental_items.create(rentable: car)
+    addons = Addon.find(params[:addon_ids])
+    #addon_items = addons.map { |addon| addon.addon_items.first_available }
+    #@rental.rental_items.create(rentable: addon_items)
     render :confirm
   end
 
@@ -44,7 +46,8 @@ class RentalsController < ApplicationController
   def review
     @rental = Rental.find(params[:id])
     @rental.in_review!
-    @rental.available_cars.each { |car| @rental.rental_items.build(car: car) }
+    @cars = @rental.available_cars
+    @addons = Addon.all
   end
 
   private

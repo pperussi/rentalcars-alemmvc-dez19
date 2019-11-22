@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_21_205320) do
+ActiveRecord::Schema.define(version: 2019_11_21_224718) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -114,10 +114,11 @@ ActiveRecord::Schema.define(version: 2019_11_21_205320) do
 
   create_table "rental_items", force: :cascade do |t|
     t.integer "rental_id"
-    t.integer "car_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["car_id"], name: "index_rental_items_on_car_id"
+    t.string "rentable_type"
+    t.integer "rentable_id"
+    t.index ["rentable_type", "rentable_id"], name: "index_rental_items_on_rentable_type_and_rentable_id"
     t.index ["rental_id"], name: "index_rental_items_on_rental_id"
   end
 

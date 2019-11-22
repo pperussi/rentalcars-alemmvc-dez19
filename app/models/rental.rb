@@ -41,6 +41,10 @@ class Rental < ApplicationRecord
     end
   end
 
+  def car
+    rental_items.find_by(rentable_type: 'Car')
+  end
+
   private
 
   def cars_available_at_date_range

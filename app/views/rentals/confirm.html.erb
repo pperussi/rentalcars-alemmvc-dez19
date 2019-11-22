@@ -6,6 +6,4 @@
 <p><%= Rental.human_attribute_name('subsidiary') %>: <%= @rental.subsidiary.name %>
 <p><%= Rental.human_attribute_name('category') %>: <%= @rental.category.name  %>
 <p><%= Rental.human_attribute_name('price_projection') %>: <%= number_to_currency(@rental.price_projection) %>
-<% @rental.rental_items.each do |rental_item| %>
-<p><%= rental_item.car.license_plate %><p>
-<% end %>
+<p><%= @rental.car.license_plate %><p>
