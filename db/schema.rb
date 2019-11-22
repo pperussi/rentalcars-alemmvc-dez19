@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_21_163247) do
+ActiveRecord::Schema.define(version: 2019_11_22_164716) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -33,11 +33,22 @@ ActiveRecord::Schema.define(version: 2019_11_21_163247) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "addon_items", force: :cascade do |t|
+    t.integer "addon_id"
+    t.string "registration_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "status"
+    t.float "daily_rate"
+    t.index ["addon_id"], name: "index_addon_items_on_addon_id"
+  end
+
   create_table "addons", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "daily_rate"
   end
 
   create_table "addresses", force: :cascade do |t|
@@ -110,6 +121,17 @@ ActiveRecord::Schema.define(version: 2019_11_21_163247) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "rental_items", force: :cascade do |t|
+    t.integer "rental_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "rentable_type"
+    t.integer "rentable_id"
+    t.float "daily_rate"
+    t.index ["rentable_type", "rentable_id"], name: "index_rental_items_on_rentable_type_and_rentable_id"
+    t.index ["rental_id"], name: "index_rental_items_on_rental_id"
   end
 
   create_table "rental_prices", force: :cascade do |t|
