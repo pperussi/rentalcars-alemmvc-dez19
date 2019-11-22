@@ -12,7 +12,16 @@
 <ul>
 <%= form_with url: confirm_rental_path, method: :post, data: { remote: false } do |f| %>
   <h3>Carros</h3>
-  <%= f.collection_radio_buttons :car_id, @cars, :id, :license_plate %>
+  <%= f.collection_radio_buttons(:car_id, @cars, :id, :license_plate) do |r| %>
+
+    <div class="card" style="width: 18rem;">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title"> <%= r.label { r.radio_button }  %> </h5>
+      </div>
+    </div>
+
+  <% end %>
   <h3>Acessórios</h3>
   <%= f.collection_check_boxes :addon_ids, @addons, :id, :name, include_hidden: false %>
   <%= f.submit 'Iniciar locação' %>
