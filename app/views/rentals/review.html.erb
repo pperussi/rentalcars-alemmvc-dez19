@@ -12,19 +12,38 @@
 <ul>
 <%= form_with url: confirm_rental_path, method: :post, data: { remote: false } do |f| %>
   <h3>Carros</h3>
+  <div class="cards">
   <%= f.collection_radio_buttons(:car_id, @cars, :id, :license_plate) do |r| %>
-
     <div class="card" style="width: 18rem;">
+        <h5 class="card-title text-center"><%= r.label{ r.radio_button } %></h5>
+        <% if r.object.car_model.photo.attached?  %>
+          <%= image_tag r.object.car_model.photo, class: 'card-img-top' %>
+        <% end %>
       <div class="card-body">
-        <h5 class="card-title"><%= r.text  %></h5>
-        <p class="card-text"></p>
-        <%= r.label{ r.radio_button}  %>
+        <h5 class="card-title"><%= r.text %></h5>
+        <ul>
+        <li class="card-text"><%= r.object.car_model.name %></li>
+        <li class="card-text"><%= r.object.car_model.manufacture.name %></li>
+        <li class="card-text"><%= r.object.color %></li>
+        </ul>
       </div>
     </div>
-       
+    <br>
   <% end %>
+  </div>
   <h3>Acessórios</h3>
-  <%= f.collection_check_boxes :addon_ids, @addons, :id, :name, include_hidden: false %>
+  <%= f.collection_check_boxes(:addon_ids, @addons, :id, :name, include_hidden: false) do |c| %>
+    <div class="media">
+      <h5 class="card-title text-center"><%= c.label{ c.check_box } %></h5>
+      <div class="media-body">
+        <h5 class="mt-0">  <%= c.text %></h5>
+        <% if c.object.photo.attached? %>
+          <%= image_tag c.object.photo, class:'mr-3', width:64, height:64 %>
+        <% end %>
+        <p><%= c.object.description %> </p>
+      </div>
+    </div>
+  <% end %>
   <%= f.submit 'Iniciar locação' %>
 <% end %>
 </ul>
