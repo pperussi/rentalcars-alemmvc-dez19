@@ -37,7 +37,7 @@ class RentalsController < ApplicationController
       @rental.update(price_projection: @rental.calculate_final_price)
       render :confirm
     else
-      flash[:alert] = "Carro deve ser selecionado"
+      flash[:danger] = "Carro deve ser selecionado"
       @cars = @rental.available_cars
       @addons = Addon.joins(:addon_items).where(addon_items: { status: :available  }).group(:id)
       render :review
