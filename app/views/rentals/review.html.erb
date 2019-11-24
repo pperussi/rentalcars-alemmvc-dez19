@@ -28,22 +28,25 @@
         </ul>
       </div>
     </div>
-    <br>
   <% end %>
   </div>
   <h3>Acessórios</h3>
+    <div class="cards">
   <%= f.collection_check_boxes(:addon_ids, @addons, :id, :name, include_hidden: false) do |c| %>
-    <div class="media">
-      <h5 class="card-title text-center"><%= c.label{ c.check_box } %></h5>
-      <div class="media-body">
-        <h5 class="mt-0">  <%= c.text %></h5>
-        <% if c.object.photo.attached? %>
-          <%= image_tag c.object.photo, class:'mr-3', width:64, height:64 %>
-        <% end %>
-        <p><%= c.object.description %> </p>
+      <div class="card" style="width: 25rem;">
+        <div class="media">
+          <div class='align-self-center ml-1 mt-2'><%= c.label{ c.check_box } %></div>
+            <% if c.object.photo.attached? %>
+              <%= image_tag c.object.photo, class:'mr-3 ml-3 mt-1 mb-1 align-self-center', width:64, height:64 %>
+            <% end %>
+          <div class="media-body">
+            <h5 class="mt-1">  <%= c.text %></h5>
+            <p><%= c.object.description %> </p>
+          </div>
+        </div>
       </div>
-    </div>
   <% end %>
-  <%= f.submit 'Iniciar locação' %>
+    </div>
+  <%= f.submit 'Iniciar locação', class: 'btn btn-primary' %>
 <% end %>
 </ul>
