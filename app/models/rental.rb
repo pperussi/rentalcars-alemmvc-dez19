@@ -52,6 +52,12 @@ class Rental < ApplicationRecord
     rental_items.find_by(rentable_type: 'Car')
   end
 
+  def user_authorized(user)
+    return true if user.admin?
+
+    subsidiary == user.subsidiary
+  end
+
   private
 
   def cars_available_at_date_range

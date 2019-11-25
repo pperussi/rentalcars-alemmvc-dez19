@@ -28,10 +28,9 @@ feature 'Admin register rental addons' do
     click_on 'Cadastrar'
     click_on 'Criar Adicional'
 
-    expect(page).to have_content('Não foi possível gravar Adicional: 3 erros')
+    expect(page).to have_content('Não foi possível gravar Adicional: 2 erros')
     expect(page).to have_content('Nome não pode ficar em branco')
     expect(page).to have_content('Descrição não pode ficar em branco')
-    expect(page).to have_content('Foto não pode ficar em branco')
   end
 
   scenario 'and pluralize errors' do
@@ -41,11 +40,9 @@ feature 'Admin register rental addons' do
     visit root_path
     click_on 'Adicionais de locação'
     click_on 'Cadastrar'
-    fill_in 'Nome', with: 'Bebê conforto'
     fill_in 'Descrição', with: 'Uma cadeirinha para bebês'
     click_on 'Criar Adicional'
 
     expect(page).to have_content('Não foi possível gravar Adicional: 1 erro')
-    expect(page).to have_content('Foto não pode ficar em branco')
   end
 end
