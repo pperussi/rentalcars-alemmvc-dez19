@@ -111,9 +111,9 @@ feature 'User fulfils rental' do
     click_on 'Locações'
     fill_in 'Código da reserva', with: rental.reservation_code
     click_on 'Buscar'
-    choose 'TLA-090'
-    check('Bebê conforto')
-    check('GPS')
+    find(:css, '#TLA-090').click
+    find(:css, '#1').click
+    find(:css, '#2').click
     click_on 'Iniciar locação'
 
     expect(page).to have_content('Confirmar dados da locação')
@@ -184,9 +184,9 @@ feature 'User fulfils rental' do
     click_on 'Locações'
     fill_in 'Código da reserva', with: rental.reservation_code
     click_on 'Buscar'
-    choose 'TLA-090'
-    check('Bebê conforto')
-    check('GPS')
+    find(:css, '#TLA-090').click
+    find(:css, '#1').click
+    find(:css, '#2').click
     click_on 'Iniciar locação'
     click_on 'Confirmar'
 
