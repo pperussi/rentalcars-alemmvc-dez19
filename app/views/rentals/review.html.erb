@@ -47,6 +47,8 @@
       </div>
   <% end %>
     </div>
-  <%= f.submit 'Iniciar locação', class: 'btn btn-primary' %>
+    <% if @rental.user_authorized(current_user) %>
+      <%= f.submit 'Iniciar locação', class: 'btn btn-primary' %>
+    <% end %>
 <% end %>
 </ul>

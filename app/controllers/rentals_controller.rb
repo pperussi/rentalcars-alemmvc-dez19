@@ -1,4 +1,6 @@
 class RentalsController < ApplicationController
+  before_action :authorize_user!, only: %i[confirm]
+
   def index
     @rentals = Rental.where(subsidiary: current_subsidiary)
   end
@@ -27,7 +29,10 @@ class RentalsController < ApplicationController
   def confirm
     @rental = Rental.find(params[:id])
     if @car = Car.find_by(id: params[:car_id])
-      @rental.rental_items.create(rentable: @car, daily_rate: @car.category.daily_rate + @car.category.third_party_insurance + @car.category.car_insurance)
+      @rental.rental_items.create(rentable: @car, daily_rate:
+                                  @car.category.daily_rate +
+                                  @car.category.third_party_insurance +
+                                  @car.category.car_insurance)
       if addons = Addon.where(id: params[:addon_ids])
         addon_items = addons.map { |addon| addon.first_available_item }
         addon_items.each do |addon_item|
@@ -71,5 +76,12 @@ class RentalsController < ApplicationController
     params.require(:rental).permit(:category_id, :client_id, :start_date,
                                    :end_date,
                                    rental_items_attributes: [:car_id])
+  end
+
+  def authorize_user!
+    @rental = Rental.find(params[:id])
+    unless current_user.admin? || @rental.subsidiary == current_subsidiary
+      redirect_to @rental
+    end
   end
 end

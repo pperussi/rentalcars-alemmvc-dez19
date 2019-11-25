@@ -34,6 +34,7 @@ feature 'User fulfils rental' do
     expect(page).to have_content(car.license_plate)
     expect(page).to have_content(other_car.license_plate)
     expect(rental.reload).to be_in_review
+    expect(page).to have_button('Iniciar locação')
   end
 
   scenario 'susccesfully without addons' do
@@ -192,5 +193,43 @@ feature 'User fulfils rental' do
 
     expect(current_path).to eq rental_path(rental)
     expect(page).to have_content('em andamento')
+  end
+
+  scenario 'and user and rental must belong to same subsidiary' do
+    subsidiary = create(:subsidiary, name: 'Almeidinha Motors')
+    other_subsidiary = create(:subsidiary, name: 'MoratoMotors' )
+    user = create(:user, subsidiary: subsidiary)
+    manufacture = create(:manufacture)
+    fuel_type = create(:fuel_type)
+    category = create(:category, name: 'A', daily_rate: 10, car_insurance: 20,
+                      third_party_insurance: 20)
+    customer = create(:individual_client, name: 'Claudionor',
+                    cpf: '318.421.176-43', email: 'cro@email.com')
+    car_model = create(:car_model, name: 'Sedan', manufacture: manufacture,
+                       fuel_type: fuel_type, category: category)
+    create(:car, car_model: car_model, license_plate: 'MVM-838')
+    create(:car, car_model: car_model, license_plate: 'TLA-090')
+    rental = create(:rental, category: category, subsidiary: other_subsidiary,
+                    start_date: '3000-01-08', end_date: '3000-01-10',
+                    client: customer, price_projection: 100, status: :scheduled)
+    addon_confort = create(:addon, name: 'Bebê conforto', daily_rate: 10.0)
+    create(:addon_item, addon: addon_confort, registration_number: '123456',
+           status: :available)
+    create(:addon_item, addon: addon_confort, registration_number: '123456',
+           status: :unavailable)
+    addon_gps = create(:addon, name: 'GPS', daily_rate: 20.0)
+    create(:addon_item, addon: addon_gps, registration_number: '123456',
+           status: :unavailable)
+    create(:addon_item, addon: addon_gps, registration_number: '789010',
+           status: :available)
+    create(:addon, name: 'Porta celular')
+    login_as user, scope: :user
+
+    visit root_path
+    click_on 'Locações'
+    fill_in 'Código da reserva', with: rental.reservation_code
+    click_on 'Buscar'
+
+    expect(page).not_to have_button('Iniciar locação')
   end
 end
