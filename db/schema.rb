@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_26_181152) do
+ActiveRecord::Schema.define(version: 2019_11_27_155252) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -156,6 +156,7 @@ ActiveRecord::Schema.define(version: 2019_11_26_181152) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "reservation_code"
+    t.float "amount_charged"
     t.index ["category_id"], name: "index_rentals_on_category_id"
     t.index ["client_id"], name: "index_rentals_on_client_id"
     t.index ["subsidiary_id"], name: "index_rentals_on_subsidiary_id"

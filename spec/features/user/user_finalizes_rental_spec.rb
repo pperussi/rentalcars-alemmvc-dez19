@@ -3,11 +3,14 @@ require 'rails_helper'
 feature 'User finalizes rental' do
   scenario 'successfully searches for rental' do
     subsidiary = create(:subsidiary, name: 'Almeida Motors')
-    category = create(:category, name: 'Deluxe')
+    category = create(:category, name: 'Deluxe', daily_rate: 10,
+                      car_insurance: 10,
+                      third_party_insurance: 10)
     car_model = create(:car_model, category: category)
     car = create(:car, car_model: car_model, status: :available)
     user = create(:user, role: :user, subsidiary: subsidiary)
-    rental = create(:rental,:with_car, start_date: '3000-01-01', end_date: '3000-01-05',
+    rental = create(:rental,:with_car, start_date: '3000-01-01',
+                    end_date: '3000-01-05',
                     status: :ongoing, category: category,
                     subsidiary: subsidiary, car: car)
     login_as user, scope: :user
@@ -23,22 +26,24 @@ feature 'User finalizes rental' do
     expect(page).to have_content("Categoria: #{rental.category.name}")
     expect(page).to have_content("Locação de: #{rental.client.name}")
     expect(page).to have_content(car.license_plate)
-    expect(page).to have_content('R$ 200,00')
+    expect(page).to have_content('R$ 120,00')
     expect(rental.reload).to be_ongoing
     expect(page).to have_content('Finalizar locação')
   end
 
   scenario 'successfully' do
     subsidiary = create(:subsidiary, name: 'Almeida Motors')
-    category = create(:category, name: 'Deluxe')
+    category = create(:category, name: 'Deluxe', daily_rate: 10,
+                      car_insurance: 10,
+                      third_party_insurance: 10)
     car_model = create(:car_model, category: category)
     car = create(:car, car_model: car_model, status: :available)
     user = create(:user, role: :user, subsidiary: subsidiary)
-    rental = create(:rental,:with_car, start_date: '3000-01-01', end_date: '3000-01-05',
+    rental = create(:rental,:with_car, start_date: '3000-01-01',
+                    end_date: '3000-01-05',
                     status: :ongoing, category: category,
                     subsidiary: subsidiary, car: car)
     login_as user, scope: :user
-
     visit root_path
     click_on 'Locações'
     fill_in 'Código da reserva', with: rental.reservation_code
@@ -47,6 +52,8 @@ feature 'User finalizes rental' do
 
     expect(page).to have_content('Status: finalizada')
     expect(rental.reload).to be_finalized
+    expect(car.reload).to be_pending_inspection
+    expect(rental.amount_charged).to eq 120.00
   end
 
   scenario 'and must be ongoing rental' do
@@ -76,9 +83,9 @@ feature 'User finalizes rental' do
     car_model = create(:car_model, category: category)
     car = create(:car, car_model: car_model, status: :available)
     user = create(:user, role: :user, subsidiary: subsidiary)
-    rental = create(:rental,:with_car, start_date: '3000-01-01', end_date: '3000-01-05',
-                    status: :ongoing, category: category,
-                    subsidiary: other_subsidiary, car: car)
+    rental = create(:rental,:with_car, start_date: '3000-01-01',
+                    end_date: '3000-01-05', status: :ongoing,
+                    category: category, subsidiary: other_subsidiary, car: car)
     login_as user, scope: :user
 
     visit root_path
@@ -88,6 +95,7 @@ feature 'User finalizes rental' do
     click_on 'Finalizar locação'
 
     expect(page).to have_content('Status: finalizada')
+    expect(car.reload).to be_pending_inspection
     expect(rental.reload).to be_finalized
   end
 end

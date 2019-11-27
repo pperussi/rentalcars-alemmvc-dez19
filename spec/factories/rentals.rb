@@ -13,7 +13,10 @@ FactoryBot.define do
       end
 
       after(:create) do |rental, evaluator|
-        create(:rental_item, rental: rental, daily_rate: 50.0, rentable: evaluator.car)
+        create(:rental_item, rental: rental, rentable: evaluator.car,
+                             daily_rate: evaluator.car.category.daily_rate +
+                             evaluator.car.category.car_insurance +
+                             evaluator.car.category.third_party_insurance)
       end
     end
 

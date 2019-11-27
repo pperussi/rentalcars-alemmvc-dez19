@@ -82,6 +82,8 @@ class RentalsController < ApplicationController
   def finalize
     @rental = Rental.find(params[:id])
     @rental.finalized!
+    @rental.car.pending_inspection!
+    @rental.update(amount_charged: @rental.calculate_final_price)
     redirect_to @rental
   end
 
