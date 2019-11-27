@@ -56,6 +56,39 @@ feature 'User finalizes rental' do
     expect(rental.amount_charged).to eq 120.00
   end
 
+  scenario 'with addons successfully' do
+    subsidiary = create(:subsidiary, name: 'Almeida Motors')
+    category = create(:category, name: 'Deluxe', daily_rate: 10,
+                      car_insurance: 10,
+                      third_party_insurance: 10)
+    car_model = create(:car_model, category: category)
+    addon = create(:addon)
+    addon_item = create(:addon_item, addon: addon)
+    car = create(:car, car_model: car_model, status: :available)
+    create(:car, car_model: car_model, status: :available)
+    user = create(:user, role: :user, subsidiary: subsidiary)
+    rental = create(:rental, start_date: '3000-01-01',
+                    end_date: '3000-01-05',
+                    status: :ongoing, category: category,
+                    subsidiary: subsidiary)
+    rental_item = create(:rental_item, rental: rental, rentable: addon_item,
+                         daily_rate: 10)
+    rental_item_car = create(:rental_item, rental: rental, rentable: car,
+                             daily_rate: 30)
+    login_as user, scope: :user
+
+    visit root_path
+    click_on 'Locações'
+    fill_in 'Código da reserva', with: rental.reservation_code
+    click_on 'Buscar'
+    click_on 'Finalizar locação'
+
+    expect(page).to have_content('Status: finalizada')
+    expect(rental.reload).to be_finalized
+    expect(car.reload).to be_pending_inspection
+    expect(rental.amount_charged).to eq 160.00
+  end
+
   scenario 'and must be ongoing rental' do
     subsidiary = create(:subsidiary, name: 'Almeida Motors')
     category = create(:category, name: 'Deluxe')
