@@ -1,4 +1,6 @@
 class CarsController < ApplicationController
+  before_action :authorize_user!, only: %i[edit]
+
   def index
     @cars = Car.where(subsidiary: current_subsidiary)
   end
@@ -38,5 +40,9 @@ class CarsController < ApplicationController
 
   def car_params
     params.require(:car).permit(%i[car_model_id car_km color license_plate])
+  end
+
+  def authorize_user!
+    redirect_to cars_path unless Car.find(params[:id]).subsidiary == current_subsidiary
   end
 end

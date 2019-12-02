@@ -1,5 +1,9 @@
+address = Address.create(street: 'R. Formosa', number: '12', complement: '3',
+                         neighborhood: 'Vila da Glória', city: 'São Paulo',
+                         state: 'São Paulo')
 subsidiary = Subsidiary.create(name: 'Almeidinha Motors',
-                               cnpj: '57.669.960/0001-66')
+                               cnpj: '57.669.960/0001-66',
+                               address: address)
 User.create(email: 'user@email.com', password: '123456', subsidiary: subsidiary,
             role: :user)
 User.create(email: 'admin@email.com', password: '123456', role: :admin)

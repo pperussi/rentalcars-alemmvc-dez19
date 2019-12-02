@@ -19,10 +19,10 @@ feature 'User schedules rental' do
     create(:car, car_model: car_model, subsidiary: subsidiary)
     create(:rental, category: category, subsidiary: subsidiary,
            start_date: '3000-01-02', end_date: '3000-01-03',
-           client: other_customer, price_projection: 100)
+           client: other_customer)
     create(:rental, category: category, subsidiary: subsidiary,
            start_date: '3000-01-08', end_date: '3000-01-10',
-           client: other_customer, price_projection: 100)
+           client: other_customer)
     login_as user, scope: :user
 
     visit root_path
@@ -117,8 +117,7 @@ feature 'User schedules rental' do
     car = create(:car, car_model: car_model, status: :unavailable, subsidiary: subsidiary)
     other_car = create(:car, car_model: other_car_model, status: :available, subsidiary: subsidiary)
     create(:rental, category: other_category, subsidiary: subsidiary,
-           start_date: '3000-01-03', end_date: '3000-01-08', client: customer,
-           price_projection: 100)
+           start_date: '3000-01-03', end_date: '3000-01-08', client: customer)
     login_as user, scope: :user
 
     visit root_path
@@ -151,10 +150,10 @@ feature 'User schedules rental' do
     create(:car, car_model: car_model, subsidiary: subsidiary)
     create(:rental, category: category, subsidiary: subsidiary,
            start_date: '3000-01-02', end_date: '3000-01-03',
-           client: other_customer, price_projection: 100)
+           client: other_customer)
     create(:rental, category: category, subsidiary: subsidiary,
            start_date: '3000-01-08', end_date: '3000-01-10',
-           client: other_customer, price_projection: 100)
+           client: other_customer)
     login_as user, scope: :user
 
     visit root_path

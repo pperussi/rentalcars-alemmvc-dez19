@@ -63,6 +63,25 @@ feature 'User edits car' do
     expect(page).to have_content('Placa não pode ficar em branco')
   end
 
+  scenario 'and must be user from same subsidiary as the car' do
+    subsidiary = create(:subsidiary, name: 'Almeidinha Automóveis')
+    other_subsidiary = create(:subsidiary, name: 'Morato Motors')
+    user = create(:user, role: :user, subsidiary: subsidiary)
+    fiat = create(:manufacture, name: 'Fiat')
+    gasolina = create(:fuel_type, name: 'Gasolina')
+    category = create(:category, name: 'A')
+    car_model = create(:car_model, name: 'Sport', manufacture: fiat,
+                                   fuel_type: gasolina, category: category)
+    create(:car_model, name: 'Sedan', manufacture: fiat, fuel_type: gasolina,
+                       category: category)
+    car = create(:car, car_model: car_model, license_plate: 'TTT-9898',
+                 subsidiary: other_subsidiary)
+    login_as user, scope: :user
+    visit edit_car_path(car.id)
+
+    expect(current_path).to eq cars_path
+  end
+
   scenario 'and must not be admin to see button' do
     user = create(:user, role: :admin)
     fiat = create(:manufacture, name: 'Fiat')

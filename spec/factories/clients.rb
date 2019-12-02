@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :client do
-    name { "" }
+    name { "Nome Fictício" }
     trade_name { "" }
-    cnpj { "" }
+    cnpj { "000.022.222.-1" }
     cpf { "" }
     email { "email@ficticio.com" }
     address { nil }

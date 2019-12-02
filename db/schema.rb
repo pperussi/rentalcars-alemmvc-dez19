@@ -157,8 +157,8 @@ ActiveRecord::Schema.define(version: 2019_12_02_163238) do
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.float "price_projection"
     t.string "reservation_code"
+    t.float "amount_charged"
     t.index ["category_id"], name: "index_rentals_on_category_id"
     t.index ["client_id"], name: "index_rentals_on_client_id"
     t.index ["subsidiary_id"], name: "index_rentals_on_subsidiary_id"
