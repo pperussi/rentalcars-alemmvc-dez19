@@ -1,5 +1,6 @@
 class Subsidiary < ApplicationRecord
   has_many :rental_prices
+  has_many :cars
   has_one :address, as: :addressable
   accepts_nested_attributes_for :address
   validates :name, presence: true

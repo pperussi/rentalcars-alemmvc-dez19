@@ -61,7 +61,7 @@ class RentalsController < ApplicationController
   def review
     @rental = Rental.find(params[:id])
     @rental.in_review!
-    @cars = @rental.available_cars
+    @cars = @rental.available_cars.where(subsidiary: current_subsidiary)
     @addons = Addon.joins(:addon_items).where(addon_items: { status: :available  }).group(:id)
   end
 

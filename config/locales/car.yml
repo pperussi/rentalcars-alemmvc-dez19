@@ -9,6 +9,8 @@ pt-BR:
         car_km: 'Quilometragem'
         license_plate: 'Placa'
         color: 'Cor'
+        subsidiary: 'Filial'
+        subsidiary_id: 'Filial'
     errors:
       models:
         car:

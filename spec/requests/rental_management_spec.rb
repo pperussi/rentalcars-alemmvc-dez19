@@ -13,8 +13,10 @@ describe "Rentals", :type => :request do
                       cpf: '318.421.176-43', email: 'cro@email.com')
     car_model = create(:car_model, name: 'Sedan', manufacture: manufacture,
                        fuel_type: fuel_type, category: category)
-    create(:car, car_model: car_model, license_plate: 'MVM-838')
-    create(:car, car_model: car_model, license_plate: 'TLA-090')
+    create(:car, car_model: car_model, license_plate: 'MVM-838',
+                 subsidiary: subsidiary)
+    create(:car, car_model: car_model, license_plate: 'TLA-090',
+                 subsidiary: subsidiary)
     rental = create(:rental, category: category, subsidiary: other_subsidiary,
                     start_date: '3000-01-08', end_date: '3000-01-10',
                     client: customer, price_projection: 100, status: :scheduled)
