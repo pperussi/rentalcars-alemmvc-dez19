@@ -7,6 +7,7 @@ class Rental < ApplicationRecord
   validates :start_date, :end_date, :price_projection, presence: true
   validate :start_cannot_be_greater_than_end, :price_cannot_be_zero
   validate :cars_available, on: :create
+
   has_many :rental_items
   accepts_nested_attributes_for :rental_items
 
@@ -33,7 +34,7 @@ class Rental < ApplicationRecord
   end
 
   def available_cars
-    category.cars.where(status: :available)
+    category.cars.where(status: :available, subsidiary: subsidiary)
   end
 
   def cars_available
@@ -66,7 +67,9 @@ class Rental < ApplicationRecord
       .or(Rental.where(category: category)
       .where(end_date: start_date..end_date))
 
-    available_cars_at_category = Car.where(status: :available).joins(:car_model)
+    available_cars_at_category = Car
+      .where(status: :available, subsidiary: subsidiary)
+      .joins(:car_model)
       .where(car_models: { category: category })
     scheduled_rentals.count >= available_cars_at_category.count
   end

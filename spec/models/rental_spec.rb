@@ -23,7 +23,7 @@ RSpec.describe Rental, type: :model do
       fuel_type = create(:fuel_type)
       car_model = create(:car_model, name: 'Sedan', manufacture: manufacture,
                                      fuel_type: fuel_type, category: category)
-      create(:car, car_model: car_model)
+      create(:car, car_model: car_model, subsidiary: subsidiary)
       rental = build(:rental, price_projection: 100, category: category,
                               subsidiary: subsidiary, client: customer)
       rental.save!
@@ -43,8 +43,8 @@ RSpec.describe Rental, type: :model do
       fuel_type = create(:fuel_type)
       car_model = create(:car_model, name: 'Sedan', manufacture: manufacture,
                                      fuel_type: fuel_type, category: category)
-      create(:car, car_model: car_model)
-      create(:car, car_model: car_model)
+      create(:car, car_model: car_model, subsidiary: subsidiary)
+      create(:car, car_model: car_model, subsidiary: subsidiary)
 
       create(:rental, :without_callbacks, price_projection: 100,
                                           category: category,
