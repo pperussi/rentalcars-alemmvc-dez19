@@ -1,5 +1,5 @@
 class CarsController < ApplicationController
-  before_action :authorize_user!, only: %i[edit]
+  before_action :authorize_user!, only: %i[edit update show]
 
   def index
     @cars = Car.where(subsidiary: current_subsidiary)
