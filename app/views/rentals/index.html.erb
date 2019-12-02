@@ -24,7 +24,7 @@
         <td><%= l(rental.start_date, format: :long) %></td>
         <td><%= l(rental.end_date, format: :long) %></td>
         <td><%= rental.category.name %></td>
-        <td><%= number_to_currency(rental.price_projection) %></td>
+        <td><%= number_to_currency(rental.calculate_price_projection) %></td>
       </tr>
       <% end %>
   </tbody>

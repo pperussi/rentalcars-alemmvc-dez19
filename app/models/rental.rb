@@ -4,7 +4,7 @@ class Rental < ApplicationRecord
   belongs_to :client
   belongs_to :category
   belongs_to :subsidiary
-  validates :start_date, :end_date, :price_projection, presence: true
+  validates :start_date, :end_date, presence: true
   validate :start_cannot_be_greater_than_end, :price_cannot_be_zero
   validate :cars_available, on: :create
   has_many :rental_items
@@ -43,13 +43,13 @@ class Rental < ApplicationRecord
   end
 
   def price_cannot_be_zero
-    if price_projection <= 0
-      errors.add(:price_projection, 'não pode ser zero.')
+    if calculate_price_projection <= 0
+      errors.add(:base, 'Valor estimado não pode ser zero.')
     end
   end
 
   def car
-    rental_items.find_by(rentable_type: 'Car')
+    rental_items.find_by(rentable_type: 'Car').rentable
   end
 
   def user_authorized(user)

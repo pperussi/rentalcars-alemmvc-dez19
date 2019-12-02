@@ -17,7 +17,7 @@ describe "Rentals", :type => :request do
     create(:car, car_model: car_model, license_plate: 'TLA-090')
     rental = create(:rental, category: category, subsidiary: other_subsidiary,
                     start_date: '3000-01-08', end_date: '3000-01-10',
-                    client: customer, price_projection: 100, status: :scheduled)
+                    client: customer, status: :scheduled)
     login_as user, scope: :user
 
     post confirm_rental_path(rental)

@@ -24,8 +24,9 @@ RSpec.describe Rental, type: :model do
       car_model = create(:car_model, name: 'Sedan', manufacture: manufacture,
                                      fuel_type: fuel_type, category: category)
       create(:car, car_model: car_model)
-      rental = build(:rental, price_projection: 100, category: category,
-                              subsidiary: subsidiary, client: customer)
+      rental = build(:rental, category: category, subsidiary: subsidiary,
+                              client: customer, start_date: '3000-01-01',
+                              end_date: '3000-01-03')
       rental.save!
 
       expect(rental).to be_persisted
@@ -46,12 +47,12 @@ RSpec.describe Rental, type: :model do
       create(:car, car_model: car_model)
       create(:car, car_model: car_model)
 
-      create(:rental, :without_callbacks, price_projection: 100,
-                                          category: category,
-                                          subsidiary: subsidiary, client: customer,
-                                          reservation_code: 'ACB123')
-      rental = build(:rental, price_projection: 100, category: category,
-                              subsidiary: subsidiary, client: customer)
+      create(:rental, :without_callbacks, start_date: '3000-01-01',
+             end_date: '3000-01-03', category: category, subsidiary: subsidiary,
+             client: customer, reservation_code: 'ACB123')
+      rental = build(:rental, category: category, subsidiary: subsidiary,
+                     client: customer, start_date: '3000-01-01',
+                     end_date: '3000-01-03')
       allow(rental).to receive(:generate_random_token)
         .and_return('ACB123', 'HDE123')
 

@@ -7,4 +7,4 @@
 <p><%= Rental.human_attribute_name('end_date') %>: <%= l @rental.end_date, format: :long  %>
 <p><%= Rental.human_attribute_name('subsidiary') %>: <%= @rental.subsidiary.name %>
 <p><%= Rental.human_attribute_name('category') %>: <%= @rental.category.name  %>
-<p><%= Rental.human_attribute_name('price_projection') %>: <%= number_to_currency(@rental.price_projection) %>
+<p><%= Rental.human_attribute_name('price_projection') %>: <%= number_to_currency(@rental.calculate_price_projection) %>
