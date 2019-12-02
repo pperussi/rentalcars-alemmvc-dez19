@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_27_155252) do
+ActiveRecord::Schema.define(version: 2019_12_02_163238) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -88,7 +88,9 @@ ActiveRecord::Schema.define(version: 2019_11_27_155252) do
     t.string "license_plate"
     t.string "color"
     t.integer "status", default: 0
+    t.integer "subsidiary_id"
     t.index ["car_model_id"], name: "index_cars_on_car_model_id"
+    t.index ["subsidiary_id"], name: "index_cars_on_subsidiary_id"
   end
 
   create_table "categories", force: :cascade do |t|

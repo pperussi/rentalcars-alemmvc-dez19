@@ -2,21 +2,24 @@ require 'rails_helper'
 
 feature 'User register car' do
   scenario 'successfully' do
-    user = create(:user, role: :user)
+    subsidiary = create(:subsidiary, name: 'Morato Motors')
+    user = create(:user, role: :user, subsidiary: subsidiary)
     fiat = create(:manufacture, name: 'Fiat')
     gasolina = create(:fuel_type, name: 'Gasolina')
-    categ = create(:category, name: 'A')
-    create(:car_model, name: 'Sport', manufacture: fiat, fuel_type: gasolina, category: categ )
+    categoria = create(:category, name: 'A')
+    create(:car_model, name: 'Sport', manufacture: fiat, fuel_type: gasolina,
+           category: categoria)
 
     login_as user, scope: :user
     visit root_path
 
+    click_on 'Carros'
     click_on 'Registrar novo carro'
     select 'Sport', from: 'Modelo'
     fill_in 'Quilometragem', with: '200'
     fill_in 'Cor', with: 'Verde Musgo'
     fill_in 'Placa', with: 'HPL6666'
-    click_on 'Criar carro'
+    click_on 'Enviar'
 
     expect(page).to have_content('Modelo')
     expect(page).to have_content('Sport')
@@ -33,8 +36,9 @@ feature 'User register car' do
 
     login_as user, scope: :user
     visit root_path
+    click_on 'Carros'
     click_on 'Registrar novo carro'
-    click_on 'Criar carro'
+    click_on 'Enviar'
 
     expect(page).to have_content('Modelo é obrigatório')
     expect(page).to have_content('Quilometragem não pode ficar em branco')
@@ -46,8 +50,9 @@ feature 'User register car' do
     user = create(:user, role: :admin)
     fiat = create(:manufacture, name: 'Fiat')
     gasolina = create(:fuel_type, name: 'Gasolina')
-    categ = create(:category, name: 'A')
-    create(:car_model, name: 'Sport', manufacture: fiat, fuel_type: gasolina, category: categ )
+    categoria = create(:category, name: 'A')
+    create(:car_model, name: 'Sport', manufacture: fiat, fuel_type: gasolina,
+           category: categoria)
 
     login_as user, scope: :user
     visit root_path
@@ -55,13 +60,13 @@ feature 'User register car' do
     expect(page).not_to have_link('Registrar novo carro')
   end
 
-  scenario 'and must be user' do
+  scenario 'and must be logged in' do
     visit root_path
 
-    expect(page).not_to have_content('Registrar novo carro')
+    expect(page).not_to have_content('Carros')
   end
 
-  scenario 'and visitor can not regiser via url' do
+  scenario 'and visitor can not register via url' do
     visit new_car_path
 
     expect(current_path).to eq new_user_session_path

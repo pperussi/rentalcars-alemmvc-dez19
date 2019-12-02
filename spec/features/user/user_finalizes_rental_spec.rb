@@ -7,7 +7,8 @@ feature 'User finalizes rental' do
                       car_insurance: 10,
                       third_party_insurance: 10)
     car_model = create(:car_model, category: category)
-    car = create(:car, car_model: car_model, status: :available)
+    car = create(:car, car_model: car_model, status: :available,
+                       subsidiary: subsidiary)
     user = create(:user, role: :user, subsidiary: subsidiary)
     rental = create(:rental,:with_car, start_date: '3000-01-01',
                     end_date: '3000-01-05',
@@ -37,7 +38,8 @@ feature 'User finalizes rental' do
                       car_insurance: 10,
                       third_party_insurance: 10)
     car_model = create(:car_model, category: category)
-    car = create(:car, car_model: car_model, status: :available)
+    car = create(:car, car_model: car_model, status: :available,
+                       subsidiary: subsidiary)
     user = create(:user, role: :user, subsidiary: subsidiary)
     rental = create(:rental,:with_car, start_date: '3000-01-01',
                     end_date: '3000-01-05',
@@ -64,8 +66,10 @@ feature 'User finalizes rental' do
     car_model = create(:car_model, category: category)
     addon = create(:addon)
     addon_item = create(:addon_item, addon: addon)
-    car = create(:car, car_model: car_model, status: :available)
-    create(:car, car_model: car_model, status: :available)
+    car = create(:car, car_model: car_model, status: :available,
+                       subsidiary: subsidiary)
+    create(:car, car_model: car_model, status: :available,
+                 subsidiary: subsidiary)
     user = create(:user, role: :user, subsidiary: subsidiary)
     rental = create(:rental, start_date: '3000-01-01',
                     end_date: '3000-01-05',
@@ -93,7 +97,8 @@ feature 'User finalizes rental' do
     subsidiary = create(:subsidiary, name: 'Almeida Motors')
     category = create(:category, name: 'Deluxe')
     car_model = create(:car_model, category: category)
-    car = create(:car, car_model: car_model, status: :available)
+    car = create(:car, car_model: car_model, status: :available,
+                       subsidiary: subsidiary)
     user = create(:user, role: :user, subsidiary: subsidiary)
     rental = create(:rental, start_date: '3000-01-01', end_date: '3000-01-05',
                     status: :scheduled, category: category,
@@ -114,7 +119,8 @@ feature 'User finalizes rental' do
     other_subsidiary = create(:subsidiary, name: 'MoratoMotors')
     category = create(:category, name: 'Deluxe')
     car_model = create(:car_model, category: category)
-    car = create(:car, car_model: car_model, status: :available)
+    car = create(:car, car_model: car_model, status: :available,
+                       subsidiary: other_subsidiary)
     user = create(:user, role: :user, subsidiary: subsidiary)
     rental = create(:rental,:with_car, start_date: '3000-01-01',
                     end_date: '3000-01-05', status: :ongoing,

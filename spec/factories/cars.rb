@@ -5,5 +5,6 @@ FactoryBot.define do
     license_plate { "CCC-000" }
     car_km { 100 }
     status { :available }
+    subsidiary
   end
 end

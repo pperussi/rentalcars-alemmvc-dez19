@@ -14,9 +14,9 @@ feature 'User schedules rental' do
                     cpf: '323.231.116-3', email: 'junior@email.com')
     car_model = create(:car_model, name: 'Sedan', manufacture: manufacture,
                        fuel_type: fuel_type, category: category)
-    create(:car, car_model: car_model)
-    create(:car, car_model: car_model)
-    create(:car, car_model: car_model)
+    create(:car, car_model: car_model, subsidiary: subsidiary)
+    create(:car, car_model: car_model, subsidiary: subsidiary)
+    create(:car, car_model: car_model, subsidiary: subsidiary)
     create(:rental, category: category, subsidiary: subsidiary,
            start_date: '3000-01-02', end_date: '3000-01-03',
            client: other_customer)
@@ -114,8 +114,8 @@ feature 'User schedules rental' do
                        fuel_type: fuel_type, category: category)
     other_car_model = create(:car_model, name: 'Sedan', manufacture: manufacture,
                        fuel_type: fuel_type, category: other_category)
-    car = create(:car, car_model: car_model, status: :unavailable)
-    other_car = create(:car, car_model: other_car_model, status: :available)
+    car = create(:car, car_model: car_model, status: :unavailable, subsidiary: subsidiary)
+    other_car = create(:car, car_model: other_car_model, status: :available, subsidiary: subsidiary)
     create(:rental, category: other_category, subsidiary: subsidiary,
            start_date: '3000-01-03', end_date: '3000-01-08', client: customer)
     login_as user, scope: :user
@@ -145,9 +145,9 @@ feature 'User schedules rental' do
                     cpf: '323.231.116-3', email: 'junior@email.com')
     car_model = create(:car_model, name: 'Sedan', manufacture: manufacture,
                        fuel_type: fuel_type, category: category)
-    create(:car, car_model: car_model)
-    create(:car, car_model: car_model)
-    create(:car, car_model: car_model)
+    create(:car, car_model: car_model, subsidiary: subsidiary)
+    create(:car, car_model: car_model, subsidiary: subsidiary)
+    create(:car, car_model: car_model, subsidiary: subsidiary)
     create(:rental, category: category, subsidiary: subsidiary,
            start_date: '3000-01-02', end_date: '3000-01-03',
            client: other_customer)

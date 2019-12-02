@@ -62,8 +62,9 @@ class RentalsController < ApplicationController
     @rental = Rental.find(params[:id])
     if @rental.scheduled?
       @rental.in_review!
-      @cars = @rental.available_cars
-      @addons = Addon.joins(:addon_items).where(addon_items: { status: :available  }).group(:id)
+      @cars = @rental.available_cars.where(subsidiary: current_subsidiary)
+      @addons = Addon.joins(:addon_items)
+                     .where(addon_items: { status: :available }).group(:id)
     elsif @rental.ongoing?
       redirect_to closure_review_rental_path(@rental)
     end
