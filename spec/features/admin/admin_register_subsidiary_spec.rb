@@ -22,6 +22,7 @@ feature 'Admin register subsidiary' do
     fill_in 'Estado', with: 'SP'
     click_on 'Enviar'
 
+    expect(page).to have_content('Valores das diárias devem ser configurados')
     expect(page).to have_content('Rent a car')
     expect(page).to have_content('75.415.539/0001-00')
     expect(page).to have_content('Endereço')

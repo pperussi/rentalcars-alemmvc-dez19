@@ -1,5 +1,5 @@
 class SubsidiariesController < ApplicationController
-before_action :authorize_admin
+  before_action :authorize_admin
 
   def index
     @subsidiaries = Subsidiary.all
@@ -28,9 +28,12 @@ before_action :authorize_admin
                          daily_car_insurance: category.car_insurance,
                          daily_third_party_insurance: category.third_party_insurance)
     end
-    return redirect_to @subsidiary if @subsidiary.save
-
-    render :new
+    if @subsidiary.save
+      flash[:success] = 'Valores das diárias devem ser configurados'
+      return redirect_to @subsidiary
+    else
+      render :new
+    end
   end
 
   def edit

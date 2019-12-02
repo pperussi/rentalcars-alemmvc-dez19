@@ -19,6 +19,7 @@ class CategoriesController < ApplicationController
                             daily_third_party_insurance:
                             @category.third_party_insurance)
       end
+      flash[:success] = 'Valores das diárias devem ser configurados'
       redirect_to categories_path
     else
       render :new

@@ -54,6 +54,7 @@ feature 'Admin register category' do
     click_on 'Enviar'
 
     rental_prices = RentalPrice.all
+    expect(page).to have_content('Valores das diárias devem ser configurados')
     expect(rental_prices[0].category.name).to eq 'Deluxe'
     expect(rental_prices[0].subsidiary.name).to eq 'Herickson'
     expect(rental_prices[0].daily_rate).to eq 50.8
