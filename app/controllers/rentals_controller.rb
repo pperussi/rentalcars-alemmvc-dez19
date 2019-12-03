@@ -5,6 +5,11 @@ class RentalsController < ApplicationController
     @rentals = Rental.where(subsidiary: current_subsidiary)
   end
 
+  def show
+    rental = Rental.find(params[:id])
+    @rental = RentalPresenter.new(rental).status
+  end
+
   def new
     @rental = Rental.new
     @clients = Client.all
