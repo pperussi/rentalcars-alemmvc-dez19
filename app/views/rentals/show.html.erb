@@ -1,6 +1,6 @@
 <h1>Locação de:  <%= @rental.client.name %></h1>
 <h3>Status:
-  <%= @rental.status %>
+  <%= @rental.status_badge %>
 </h3>
 
 <p><%= Rental.human_attribute_name('reservation_code') %>: <%= @rental.reservation_code %></p>

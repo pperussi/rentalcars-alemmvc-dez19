@@ -12,7 +12,7 @@ class CarModelPresenter < SimpleDelegator
       end
     end
   end
-  
+
   private
 
   def helper
