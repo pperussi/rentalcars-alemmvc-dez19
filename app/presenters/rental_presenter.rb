@@ -5,12 +5,9 @@ class RentalPresenter < SimpleDelegator
     super(rental)
   end
 
-  def status
-    if scheduled?
-
-      content_tag :span, class: "badge badge-primary" do
-        'agendada'
-      end
+  def status_badge
+    content_tag :span, class: "badge badge-#{status_class}" do
+      I18n.translate(status.to_s)
     end
   end
 
@@ -18,5 +15,16 @@ class RentalPresenter < SimpleDelegator
 
   def helper
     ApplicationController.helpers
+  end
+
+  def status_class
+    status_classes = {
+      scheduled: 'primary',
+      ongoing: 'info',
+      in_review: '',
+      finalized: 'success'
+    }
+
+    status_classes[status.to_sym]
   end
 end
